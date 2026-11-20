@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f7eee5">
+  <title>Открытка для Полины</title>
+  <style>
+    /* Первый экран открытки Полине: цельный утверждённый макет масштабируется без повторной сборки сцены. Прозрачная кнопка находится над кнопкой на изображении. */
+    * { box-sizing: border-box; }
+    html, body { margin: 0; min-height: 100%; }
+    body { display: grid; place-items: center; min-height: 100svh; background: #e8ded5; font-family: Georgia, serif; }
+    .card { position: relative; width: min(100vw, 56.28svh, 430px); aspect-ratio: 941 / 1672; overflow: hidden; background: #f7eee5; box-shadow: 0 12px 40px #563c3930; }
+    .screen { position: absolute; inset: 0; transition: opacity .48s ease; }
+    .cover { opacity: 1; animation: appear .7s ease-out both; }
+    .cover img { display: block; width: 100%; height: 100%; }
+    .hotspot { position: absolute; left: 14%; top: 80.4%; width: 72%; height: 8.3%; border: 0; border-radius: 100px; background: transparent; color: transparent; cursor: pointer; -webkit-tap-highlight-color: transparent; transition: background .2s ease, transform .2s ease; }
+    .hotspot:hover { background: #ffffff14; transform: scale(1.015); }
+    .hotspot:active { background: #ffffff26; transform: scale(.985); }
+    .hotspot:focus-visible { outline: 3px solid #fff; outline-offset: -5px; }
+    .next { display: grid; place-content: center; gap: 26px; padding: 28px; text-align: center; background: #f7eee5; color: #68433f; opacity: 0; pointer-events: none; }
+    .next p { margin: 0; font-size: clamp(24px, 7vw, 36px); font-style: italic; }
+    .back { padding: 12px 22px; border: 1px solid #87617f; border-radius: 30px; background: #87617f; color: #fff; font: inherit; cursor: pointer; }
+    .card.is-open .cover { opacity: 0; pointer-events: none; }
+    .card.is-open .next { opacity: 1; pointer-events: auto; }
+    @keyframes appear { from { opacity: 0; } to { opacity: 1; } }
+    @media (min-width: 500px) { body { padding: 24px; } .card { max-height: calc(100svh - 48px); border-radius: 12px; } }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; } }
+  </style>
+</head>
+<body>
+  <main class="card" id="card">
+    <section class="screen cover" aria-label="Обложка открытки">
+      <img src="mobile-reference.webp" alt="Для Полины. С днём рождения! Прованский пейзаж, конверт с лавандой и кнопка «Открыть открытку»">
+      <button class="hotspot" id="open" type="button" aria-label="Открыть открытку"></button>
+    </section>
+    <section class="screen next" id="next" aria-label="Продолжение открытки" aria-hidden="true">
+      <p>Продолжение открытки</p>
+      <button class="back" id="back" type="button">Вернуться к обложке</button>
+    </section>
+  </main>
+  <script>
+    /* Первый экран открытки Полине: нажатие на нарисованную кнопку плавно показывает временную заглушку, а кнопка возврата снова открывает обложку. */
+    const card = document.getElementById('card');
+    const next = document.getElementById('next');
+    const openButton = document.getElementById('open');
+    const backButton = document.getElementById('back');
+    function showNext(open) {
+      card.classList.toggle('is-open', open);
+      next.setAttribute('aria-hidden', String(!open));
+      openButton.tabIndex = open ? -1 : 0;
+      backButton.tabIndex = open ? 0 : -1;
+      (open ? backButton : openButton).focus({ preventScroll: true });
+    }
+    backButton.tabIndex = -1;
+    openButton.addEventListener('click', () => showNext(true));
+    backButton.addEventListener('click', () => showNext(false));
+  </script>
+</body>
+</html>
