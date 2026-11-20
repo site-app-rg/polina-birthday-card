@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#f7eee5">
   <title>Открытка для Полины</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=PT+Serif:wght@400;700&display=swap" rel="stylesheet">
   <style>
     /* Первый экран открытки Полине: цельный утверждённый макет масштабируется без повторной сборки сцены. Прозрачная кнопка находится над кнопкой на изображении. */
     * { box-sizing: border-box; }
@@ -18,13 +21,31 @@
     .hotspot:hover { background: #ffffff14; transform: scale(1.015); }
     .hotspot:active { background: #ffffff26; transform: scale(.985); }
     .hotspot:focus-visible { outline: 3px solid #fff; outline-offset: -5px; }
-    .next { display: grid; place-content: center; gap: 26px; padding: 28px; text-align: center; background: #f7eee5; color: #68433f; opacity: 0; pointer-events: none; }
-    .next p { margin: 0; font-size: clamp(24px, 7vw, 36px); font-style: italic; }
-    .back { padding: 12px 22px; border: 1px solid #87617f; border-radius: 30px; background: #87617f; color: #fff; font: inherit; cursor: pointer; }
-    .card.is-open .cover { opacity: 0; pointer-events: none; }
-    .card.is-open .next { opacity: 1; pointer-events: auto; }
+    .card.is-leaving { opacity: 0; transition: opacity .45s ease; pointer-events: none; }
+    /* Второй экран открытки Полине: письмо идёт обычным потоком страницы и прокручивается целиком. Лаванда остаётся за пределами текста, кнопка ведёт к временной заглушке альбома. */
+    .letter-page, .album-placeholder { display: none; width: min(100%, 430px); min-height: 100svh; margin: 0 auto; padding: 18px 12px 28px; background: #f4e9df; }
+    body.show-letter, body.show-album { display: block; }
+    body.show-letter .card, body.show-album .card { display: none; }
+    body.show-letter .letter-page { display: block; animation: appear .48s ease both; }
+    body.show-album .album-placeholder { display: grid; place-content: center; text-align: center; }
+    .paper { position: relative; min-height: calc(100svh - 46px); overflow: hidden; padding: 130px 24px 155px; border: 1px solid #e8d4bf; border-radius: 6px 3px 8px 4px; background: radial-gradient(ellipse at 48% 28%, #fffaf2 5%, #fbf1e7 68%, #f5e7d9 100%); box-shadow: 0 8px 25px #6f4b3d2b, inset 0 0 38px #d9b89d20; color: #5d3834; }
+    .paper::before, .paper::after { content: ""; position: absolute; z-index: 0; width: 180px; height: 180px; background: url("lavender-linen.webp") left top / cover no-repeat; opacity: .72; mix-blend-mode: multiply; pointer-events: none; mask-image: radial-gradient(ellipse at 32% 36%, #000 18%, transparent 70%); }
+    .paper::before { top: -18px; right: -28px; transform: scaleX(-1) rotate(-8deg); }
+    .paper::after { bottom: -24px; left: -28px; }
+    .letter-content { position: relative; z-index: 1; }
+    .letter-content h1 { margin: 0 0 27px; color: #65403a; font-family: "Cormorant Garamond", Georgia, serif; font-size: clamp(43px, 12vw, 54px); font-weight: 500; font-style: italic; line-height: 1; text-align: center; }
+    .letter-content h1::after { content: "❧"; display: block; margin-top: 13px; color: #a17b75; font-family: Georgia, serif; font-size: 26px; font-style: normal; font-weight: 400; }
+    .letter-content p { margin: 0 0 18px; font-family: "PT Serif", Georgia, serif; font-size: 16px; line-height: 1.6; }
+    .letter-content .opening { font-size: 18px; font-weight: 700; text-align: center; line-height: 1.45; }
+    .letter-content .closing { margin: 28px -8px 18px; padding: 16px 10px; background: #d8bcd03d; color: #5d3834; font-family: "Cormorant Garamond", Georgia, serif; font-size: 25px; font-style: italic; line-height: 1.08; text-align: center; }
+    .memories { display: block; width: min(100%, 280px); min-height: 54px; margin: 32px auto 0; padding: 8px 16px; border: 1px solid #e8d3dc; border-radius: 50px; background: #87617f; box-shadow: 0 5px 10px #67445338; color: #fffaf5; font-family: "Cormorant Garamond", Georgia, serif; font-size: 27px; cursor: pointer; }
+    .memories:focus-visible, .placeholder-back:focus-visible { outline: 3px solid #5d3834; outline-offset: 3px; }
+    .album-placeholder { color: #5d3834; }
+    .album-placeholder p { font-family: "Cormorant Garamond", Georgia, serif; font-size: 34px; font-style: italic; }
+    .placeholder-back { padding: 12px 20px; border: 0; border-radius: 30px; background: #87617f; color: white; font: inherit; cursor: pointer; }
     @keyframes appear { from { opacity: 0; } to { opacity: 1; } }
     @media (min-width: 500px) { body { padding: 24px; } .card { max-height: calc(100svh - 48px); border-radius: 12px; } }
+    @media (max-width: 350px) { .paper { padding: 118px 19px 146px; } .letter-content p { font-size: 15px; line-height: 1.58; } }
     @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; } }
   </style>
 </head>
@@ -34,27 +55,58 @@
       <img src="mobile-reference.webp" alt="Для Полины. С днём рождения! Прованский пейзаж, конверт с лавандой и кнопка «Открыть открытку»">
       <button class="hotspot" id="open" type="button" aria-label="Открыть открытку"></button>
     </section>
-    <section class="screen next" id="next" aria-label="Продолжение открытки" aria-hidden="true">
-      <p>Продолжение открытки</p>
-      <button class="back" id="back" type="button">Вернуться к обложке</button>
-    </section>
   </main>
+  <section class="letter-page" id="letter" aria-label="Поздравительное письмо" hidden>
+    <article class="paper">
+      <div class="letter-content">
+        <h1>Дорогая моя!</h1>
+        <p class="opening">Хочу поздравить тебя с днём рождения!</p>
+        <p>Пожелать тебе хочется много и ещё больше. Счастья громадного, успехов всевозможных, любви бездонной.</p>
+        <p>Чтобы в твоём доме царили покой и уют, а ты всегда находила желание и силы их поддерживать и создавать.</p>
+        <p>Чтобы несчастья и горести всегда обходили тебя стороной. А ты была почаще весела и беспечна, а твой задорный, искристый смех звучал как можно чаще.</p>
+        <p>Достатка тебе желаю огромного, пусть без труда решаются проблемы. Да просто чтобы жизнь была без них.</p>
+        <p class="closing">Очень тебя люблю! Спасибо за дружбу твою и поддержку!</p>
+        <p>Ещё раз с днём рождения тебя! ❤️</p>
+        <button class="memories" id="memories" type="button">Наши воспоминания</button>
+      </div>
+    </article>
+  </section>
+  <section class="album-placeholder" id="album" aria-label="Наши воспоминания" hidden>
+    <p>Наши воспоминания</p>
+    <button class="placeholder-back" id="back" type="button">Вернуться к письму</button>
+  </section>
   <script>
-    /* Первый экран открытки Полине: нажатие на нарисованную кнопку плавно показывает временную заглушку, а кнопка возврата снова открывает обложку. */
+    /* Первый экран открытки Полине: существующая область кнопки запускает плавный переход к письму. Второй экран открывает только заглушку альбома и позволяет вернуться к письму. */
     const card = document.getElementById('card');
-    const next = document.getElementById('next');
     const openButton = document.getElementById('open');
+    const letter = document.getElementById('letter');
+    const album = document.getElementById('album');
+    const memoriesButton = document.getElementById('memories');
     const backButton = document.getElementById('back');
-    function showNext(open) {
-      card.classList.toggle('is-open', open);
-      next.setAttribute('aria-hidden', String(!open));
-      openButton.tabIndex = open ? -1 : 0;
-      backButton.tabIndex = open ? 0 : -1;
-      (open ? backButton : openButton).focus({ preventScroll: true });
-    }
-    backButton.tabIndex = -1;
-    openButton.addEventListener('click', () => showNext(true));
-    backButton.addEventListener('click', () => showNext(false));
+    openButton.addEventListener('click', () => {
+      card.classList.add('is-leaving');
+      openButton.disabled = true;
+      window.setTimeout(() => {
+        letter.hidden = false;
+        document.body.classList.add('show-letter');
+        window.scrollTo(0, 0);
+        letter.querySelector('h1').setAttribute('tabindex', '-1');
+        letter.querySelector('h1').focus({ preventScroll: true });
+      }, 460);
+    });
+    memoriesButton.addEventListener('click', () => {
+      album.hidden = false;
+      document.body.classList.remove('show-letter');
+      document.body.classList.add('show-album');
+      window.scrollTo(0, 0);
+      backButton.focus({ preventScroll: true });
+    });
+    backButton.addEventListener('click', () => {
+      document.body.classList.remove('show-album');
+      document.body.classList.add('show-letter');
+      album.hidden = true;
+      memoriesButton.focus({ preventScroll: true });
+    });
   </script>
 </body>
 </html>
