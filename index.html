@@ -23,11 +23,11 @@
     .hotspot:focus-visible { outline: 3px solid #fff; outline-offset: -5px; }
     .card.is-leaving { opacity: 0; transition: opacity .45s ease; pointer-events: none; }
     /* Второй экран открытки Полине: письмо идёт обычным потоком страницы и прокручивается целиком. Лаванда остаётся за пределами текста, кнопка ведёт к временной заглушке альбома. */
-    .letter-page, .album-placeholder { display: none; width: min(100%, 430px); min-height: 100svh; margin: 0 auto; padding: 18px 12px 28px; background: #f4e9df; }
-    body.show-letter, body.show-album { display: block; }
-    body.show-letter .card, body.show-album .card { display: none; }
+    .letter-page, .album-page, .video-page, .final-page { display: none; width: min(100%, 430px); min-height: 100svh; margin: 0 auto; padding: 18px 12px 28px; background: #f4e9df; }
+    body.show-letter, body.show-album, body.show-video, body.show-final { display: block; }
+    body.show-letter .card, body.show-album .card, body.show-video .card, body.show-final .card { display: none; }
     body.show-letter .letter-page { display: block; animation: appear .48s ease both; }
-    body.show-album .album-placeholder { display: grid; place-content: center; text-align: center; }
+    body.show-album .album-page, body.show-video .video-page, body.show-final .final-page { display: block; animation: appear .45s ease both; }
     .paper { position: relative; min-height: calc(100svh - 46px); overflow: hidden; padding: 130px 24px 155px; border: 1px solid #e8d4bf; border-radius: 6px 3px 8px 4px; background: radial-gradient(ellipse at 48% 28%, #fffaf2 5%, #fbf1e7 68%, #f5e7d9 100%); box-shadow: 0 8px 25px #6f4b3d2b, inset 0 0 38px #d9b89d20; color: #5d3834; }
     .paper::before, .paper::after { content: ""; position: absolute; z-index: 0; width: 180px; height: 180px; background: url("lavender-linen.webp") left top / cover no-repeat; opacity: .72; mix-blend-mode: multiply; pointer-events: none; mask-image: radial-gradient(ellipse at 32% 36%, #000 18%, transparent 70%); }
     .paper::before { top: -18px; right: -28px; transform: scaleX(-1) rotate(-8deg); }
@@ -40,9 +40,25 @@
     .letter-content .closing { margin: 28px -8px 18px; padding: 16px 10px; background: #d8bcd03d; color: #5d3834; font-family: "Cormorant Garamond", Georgia, serif; font-size: 25px; font-style: italic; line-height: 1.08; text-align: center; }
     .memories { display: block; width: min(100%, 280px); min-height: 54px; margin: 32px auto 0; padding: 8px 16px; border: 1px solid #e8d3dc; border-radius: 50px; background: #87617f; box-shadow: 0 5px 10px #67445338; color: #fffaf5; font-family: "Cormorant Garamond", Georgia, serif; font-size: 27px; cursor: pointer; }
     .memories:focus-visible, .placeholder-back:focus-visible { outline: 3px solid #5d3834; outline-offset: 3px; }
-    .album-placeholder { color: #5d3834; }
-    .album-placeholder p { font-family: "Cormorant Garamond", Georgia, serif; font-size: 34px; font-style: italic; }
-    .placeholder-back { padding: 12px 20px; border: 0; border-radius: 30px; background: #87617f; color: white; font: inherit; cursor: pointer; }
+    /* Локальный альбом Полины: одна настоящая фотография целиком помещается в бумажную карточку. Стрелки и свайпы меняют индекс без подписей и без обрезки снимка. */
+    .album-sheet, .video-sheet, .final-sheet { position: relative; min-height: calc(100svh - 46px); padding: 25px 17px 30px; overflow: hidden; border: 1px solid #e8d4bf; border-radius: 6px; background: radial-gradient(ellipse at 50% 35%, #fffaf2, #f5e7d9); box-shadow: 0 8px 25px #6f4b3d2b; color: #5d3834; text-align: center; }
+    .album-sheet h2, .video-sheet h2 { margin: 4px 0 16px; font-family: "Cormorant Garamond", Georgia, serif; font-size: clamp(37px, 10vw, 47px); font-style: italic; font-weight: 500; line-height: 1; }
+    .photo-card { display: grid; place-items: center; width: 100%; height: min(55svh, 510px); padding: 12px; background: #fffaf2; border: 1px solid #e7d6c8; box-shadow: 0 5px 14px #65453630; touch-action: pan-y; }
+    .photo-card img { display: block; max-width: 100%; max-height: 100%; width: 100%; height: 100%; object-fit: contain; transition: opacity .18s ease; }
+    .photo-card img.changing { opacity: 0; }
+    .photo-nav { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 17px 8px 20px; font: 20px "PT Serif", Georgia, serif; }
+    .photo-nav button { width: 48px; height: 48px; border: 1px solid #e3cbbd; border-radius: 50%; background: #fff8ee; color: #68433f; font-size: 30px; cursor: pointer; }
+    .action { min-width: 190px; min-height: 52px; padding: 8px 22px; border: 1px solid #e8d3dc; border-radius: 50px; background: #87617f; color: #fffaf5; font: 27px "Cormorant Garamond", Georgia, serif; cursor: pointer; }
+    .photo-nav button:focus-visible, .action:focus-visible { outline: 3px solid #5d3834; outline-offset: 3px; }
+    /* Видео и финал открытки Полине: оригинальный вертикальный ролик остаётся с обычным управлением и без автозапуска, затем открывается заключительный лист. */
+    .video-frame { width: min(100%, 310px); margin: 16px auto 24px; padding: 10px; background: #fffaf2; border: 1px solid #e7d6c8; box-shadow: 0 6px 16px #65453635; }
+    .video-frame video { display: block; width: 100%; max-height: 62svh; aspect-ratio: 480 / 848; background: #231b20; }
+    .final-sheet { display: flex; flex-direction: column; justify-content: center; padding: 80px 28px; }
+    .final-sheet::before, .final-sheet::after { content: ""; position: absolute; width: 175px; height: 175px; background: url("lavender-linen.webp") left top / cover no-repeat; opacity: .68; mix-blend-mode: multiply; mask-image: radial-gradient(ellipse at 32% 36%, #000 18%, transparent 70%); pointer-events: none; }
+    .final-sheet::before { top: -18px; right: -30px; transform: scaleX(-1); }
+    .final-sheet::after { bottom: -25px; left: -25px; }
+    .final-sheet h2 { position: relative; z-index: 1; margin: 0; font: italic 500 clamp(42px, 12vw, 57px)/1.05 "Cormorant Garamond", Georgia, serif; }
+    .final-sheet p { position: relative; z-index: 1; margin: 25px 0 0; font: italic 500 clamp(29px, 8vw, 38px)/1.15 "Cormorant Garamond", Georgia, serif; }
     @keyframes appear { from { opacity: 0; } to { opacity: 1; } }
     @media (min-width: 500px) { body { padding: 24px; } .card { max-height: calc(100svh - 48px); border-radius: 12px; } }
     @media (max-width: 350px) { .paper { padding: 118px 19px 146px; } .letter-content p { font-size: 15px; line-height: 1.58; } }
@@ -71,42 +87,82 @@
       </div>
     </article>
   </section>
-  <section class="album-placeholder" id="album" aria-label="Наши воспоминания" hidden>
-    <p>Наши воспоминания</p>
-    <button class="placeholder-back" id="back" type="button">Вернуться к письму</button>
+  <section class="album-page" id="album" aria-label="Наши воспоминания" hidden>
+    <div class="album-sheet">
+      <h2>Наши воспоминания</h2>
+      <div class="photo-card" id="photoCard"><img id="photo" src="photos/polina-01.jpg" alt="Фотография 1 из 23"></div>
+      <div class="photo-nav">
+        <button id="previous" type="button" aria-label="Предыдущая фотография">‹</button>
+        <span id="counter" aria-live="polite">1 / 23</span>
+        <button id="next" type="button" aria-label="Следующая фотография">›</button>
+      </div>
+      <button class="action" id="toVideo" type="button">Дальше</button>
+    </div>
+  </section>
+  <section class="video-page" id="videoPage" aria-label="Видео" hidden>
+    <div class="video-sheet">
+      <h2>Для тебя</h2>
+      <div class="video-frame"><video id="birthdayVideo" src="media/birthday-video.mp4" controls playsinline preload="metadata" aria-label="Поздравительное видео"></video></div>
+      <button class="action" id="toFinal" type="button">К финалу</button>
+    </div>
+  </section>
+  <section class="final-page" id="finalPage" aria-label="Финальное поздравление" hidden>
+    <div class="final-sheet">
+      <h2>Очень тебя люблю!</h2>
+      <p>Спасибо за дружбу твою и поддержку!</p>
+    </div>
   </section>
   <script>
-    /* Первый экран открытки Полине: существующая область кнопки запускает плавный переход к письму. Второй экран открывает только заглушку альбома и позволяет вернуться к письму. */
+    /* Навигация открытки Полине: обложка, письмо, 23 фотографии, видео и финал сменяются без перезагрузки. Свайпы и стрелки листают фотографии, видео запускает сам пользователь. */
     const card = document.getElementById('card');
     const openButton = document.getElementById('open');
     const letter = document.getElementById('letter');
     const album = document.getElementById('album');
+    const videoPage = document.getElementById('videoPage');
+    const finalPage = document.getElementById('finalPage');
     const memoriesButton = document.getElementById('memories');
-    const backButton = document.getElementById('back');
+    const photo = document.getElementById('photo');
+    const counter = document.getElementById('counter');
+    const photoCard = document.getElementById('photoCard');
+    const video = document.getElementById('birthdayVideo');
+    let photoIndex = 0;
+    const photoCount = 23;
+    function showPage(name) {
+      document.body.classList.remove('show-letter', 'show-album', 'show-video', 'show-final');
+      document.body.classList.add('show-' + name);
+      ({ letter, album, video: videoPage, final: finalPage })[name].hidden = false;
+      window.scrollTo(0, 0);
+    }
+    function changePhoto(delta) {
+      photoIndex = (photoIndex + delta + photoCount) % photoCount;
+      photo.classList.add('changing');
+      window.setTimeout(() => {
+        photo.onload = () => photo.classList.remove('changing');
+        photo.src = 'photos/polina-' + String(photoIndex + 1).padStart(2, '0') + '.jpg';
+        photo.alt = 'Фотография ' + (photoIndex + 1) + ' из 23';
+        counter.textContent = (photoIndex + 1) + ' / 23';
+      }, 180);
+    }
     openButton.addEventListener('click', () => {
       card.classList.add('is-leaving');
       openButton.disabled = true;
       window.setTimeout(() => {
-        letter.hidden = false;
-        document.body.classList.add('show-letter');
-        window.scrollTo(0, 0);
+        showPage('letter');
         letter.querySelector('h1').setAttribute('tabindex', '-1');
         letter.querySelector('h1').focus({ preventScroll: true });
       }, 460);
     });
-    memoriesButton.addEventListener('click', () => {
-      album.hidden = false;
-      document.body.classList.remove('show-letter');
-      document.body.classList.add('show-album');
-      window.scrollTo(0, 0);
-      backButton.focus({ preventScroll: true });
-    });
-    backButton.addEventListener('click', () => {
-      document.body.classList.remove('show-album');
-      document.body.classList.add('show-letter');
-      album.hidden = true;
-      memoriesButton.focus({ preventScroll: true });
-    });
+    memoriesButton.addEventListener('click', () => showPage('album'));
+    document.getElementById('previous').addEventListener('click', () => changePhoto(-1));
+    document.getElementById('next').addEventListener('click', () => changePhoto(1));
+    let touchX = 0;
+    photoCard.addEventListener('touchstart', event => { touchX = event.changedTouches[0].clientX; }, { passive: true });
+    photoCard.addEventListener('touchend', event => {
+      const distance = event.changedTouches[0].clientX - touchX;
+      if (Math.abs(distance) > 40) changePhoto(distance < 0 ? 1 : -1);
+    }, { passive: true });
+    document.getElementById('toVideo').addEventListener('click', () => showPage('video'));
+    document.getElementById('toFinal').addEventListener('click', () => { video.pause(); showPage('final'); });
   </script>
 </body>
 </html>
