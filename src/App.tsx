@@ -78,7 +78,8 @@ export default function App() {
     if (introCompleteRef.current) return
     introCompleteRef.current = true
     introAudioRef.current?.pause()
-    if (mainAudioRef.current) mainAudioRef.current.currentTime = 0
+    // Основная песня Полины после 11 секунд вступления начинается с отметки 1:08; паузы телефона и видео сохраняют текущую позицию.
+    if (mainAudioRef.current) mainAudioRef.current.currentTime = 68
     syncBackground()
   }
 
@@ -145,7 +146,7 @@ export default function App() {
 
   return <>
     <audio ref={introAudioRef} src={introSong} preload="metadata" onPlay={() => { setIsMusicPlaying(true); setAudioMessage('') }} onPause={() => setIsMusicPlaying(false)} onTimeUpdate={(event) => { if (event.currentTarget.currentTime >= 11) finishIntro() }} onEnded={finishIntro} onError={() => setAudioMessage('Не удалось загрузить вступление.')} />
-    <audio ref={mainAudioRef} src={mainSong} preload="metadata" loop onPlay={() => { setIsMusicPlaying(true); setAudioMessage('') }} onPause={() => setIsMusicPlaying(false)} onError={() => setAudioMessage('Не удалось загрузить песню.')} />
+    <audio ref={mainAudioRef} src={mainSong} preload="metadata" loop onLoadedMetadata={(event) => { if (introCompleteRef.current && event.currentTarget.currentTime < 68) event.currentTarget.currentTime = 68 }} onPlay={() => { setIsMusicPlaying(true); setAudioMessage('') }} onPause={() => setIsMusicPlaying(false)} onError={() => setAudioMessage('Не удалось загрузить песню.')} />
     {opened ? <Album onBack={backToCover} onOpenPhoto={openPhoto} onOpenSurprise={openSurprise} onToggleMusic={toggleMusic} isMusicPlaying={isMusicPlaying} audioMessage={audioMessage} modalOpen={modalOpen} onPhoneActivityChange={handlePhoneActivityChange} /> : <CardCover onOpen={openCard} />}
     {celebrating && <OpeningConfetti onComplete={finishCelebrating} />}
     {surpriseOpen && <SurpriseModal onClose={closeSurprise} onVideoActivityChange={handleVideoActivityChange} />}

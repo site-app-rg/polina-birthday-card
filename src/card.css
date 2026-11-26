@@ -714,6 +714,8 @@ button:focus-visible{outline-color:#927B9D}
 .cover-open::before{background:linear-gradient(110deg,transparent 39%,#FFFCF580 46%,#FFFCF5ed 50%,#FFFCF580 54%,transparent 61%)}
 /* Фото на первом экране Полины: снимок целиком помещается в прежнюю бумажную рамку, без изменения её размера, наклона и оформления. */
 .cover-polaroid .cover-polaroid__portrait{object-fit:contain;background:#FFFCF5}
+/* Небольшая лаванда под фотографией на обложке Полины заменяет имя без изменения размеров и положения рамки. */
+.cover-polaroid figcaption .cover-polaroid__lavender{display:block;width:72px;height:33px;margin:0 auto;object-fit:cover;object-position:center top;transform:rotate(-12deg)}
 
 /* Компоновка снимков Полины: альбом листается как прежде, два коллажа собираются из бумажных карточек без пустых промежутков, а ручной слайдер занимает место прежней сетки. */
 .album-sequence{height:155svh}
