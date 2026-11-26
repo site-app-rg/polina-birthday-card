@@ -3,7 +3,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 type Playback = 'idle' | 'playing' | 'finished'
 const media = (name: string) => `${import.meta.env.BASE_URL}media/${name}`
 
-// Телефон между коллажами Полины: при первом появлении в поле зрения до трёх раз проигрывает короткий механический звонок с паузами. Нажатие прекращает звонок и управляет полной мелодией; сигнал активности позволяет в будущем приостанавливать фоновую музыку.
+// Телефон между коллажами Полины: при первом появлении в поле зрения дважды проигрывает короткий механический звонок с паузой. Нажатие прекращает звонок и управляет полной мелодией; сигнал активности приостанавливает фоновую музыку.
 export function VintageTelephone({ onActivityChange }: { onActivityChange: (active: boolean) => void }) {
   const section = useRef<HTMLElement>(null)
   const ring = useRef<HTMLAudioElement>(null)
@@ -56,7 +56,7 @@ export function VintageTelephone({ onActivityChange }: { onActivityChange: (acti
         timer.current = window.setTimeout(() => {
           ring.current?.pause()
           setRinging(false)
-          if (count < 3) timer.current = window.setTimeout(chime, 2200)
+          if (count < 2) timer.current = window.setTimeout(chime, 2200)
           else { timer.current = null; activity.current(false) }
         }, 2100)
       }
