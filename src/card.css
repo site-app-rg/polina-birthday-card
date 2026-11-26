@@ -714,12 +714,16 @@ button:focus-visible{outline-color:#927B9D}
 .cover-open::before{background:linear-gradient(110deg,transparent 39%,#FFFCF580 46%,#FFFCF5ed 50%,#FFFCF580 54%,transparent 61%)}
 /* Фото на первом экране Полины: снимок целиком помещается в прежнюю бумажную рамку, без изменения её размера, наклона и оформления. */
 .cover-polaroid .cover-polaroid__portrait{object-fit:contain;background:#FFFCF5}
-/* Обложка Полины: фото занимает место прежней подписи, верхнее и нижнее белые поля сбалансированы; два небольших сердечка расположены по краям нижнего поля. */
+/* Обложка Полины: фото занимает место прежней подписи; шесть сердечек с разными наклонами размещены в свободных боковых полях, без изменения карточки и снимка. */
 .cover-polaroid{padding-top:15px;padding-bottom:16px}
 .cover-polaroid .cover-polaroid__portrait{height:calc(min(39svh,346px) + 22px)}
-.cover-polaroid__heart{position:absolute;bottom:1px;color:#927B9D;font:14px/1 Georgia,serif;pointer-events:none}
-.cover-polaroid__heart--left{left:12%}
-.cover-polaroid__heart--right{right:12%;transform:rotate(12deg)}
+.cover-polaroid__heart{position:absolute;z-index:2;color:#927B9D;font:19px/1 Georgia,serif;pointer-events:none}
+.cover-polaroid__heart--left-top{top:17%;left:5%;transform:rotate(-16deg)}
+.cover-polaroid__heart--left-middle{top:48%;left:4%;transform:rotate(11deg)}
+.cover-polaroid__heart--left-low{top:78%;left:5%;transform:rotate(-7deg)}
+.cover-polaroid__heart--right-top{top:26%;right:3%;transform:rotate(18deg)}
+.cover-polaroid__heart--right-middle{top:62%;right:3%;transform:rotate(-13deg)}
+.cover-polaroid__heart--right{right:12%;bottom:1px;font-size:14px;transform:rotate(12deg)}
 @media(max-width:430px){.cover-polaroid .cover-polaroid__portrait{height:calc(clamp(200px,37svh,320px) + 22px)}}
 
 /* Компоновка снимков Полины: альбом листается как прежде, два коллажа собираются из бумажных карточек без пустых промежутков, а ручной слайдер занимает место прежней сетки. */
