@@ -1,0 +1,885 @@
+:root{font-family:Georgia,'Times New Roman',serif;color:#624532;background:#f8eee2;font-synthesis:none;text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+html{min-width:320px;overflow-x:clip}
+body{margin:0;overflow-x:clip}
+button{font:inherit}
+button:focus-visible{outline:3px solid #ad4f32;outline-offset:4px}
+.card-cover,.card-story{--cream:#fff4e7;--paper:#f7e6d0;--peach:#efbea0;--terra:#c66d4d;--ink:#6c3b2d}
+.card-cover{min-height:100svh;display:grid;place-items:center;overflow:hidden;background:radial-gradient(circle at 48% 44%,#ffe9d3 0,#f9ebdf 54%,#ebd2bc 100%)}
+.cover-composition{position:relative;isolation:isolate;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(18px,3svh,30px);width:min(100%,460px);min-height:100svh;padding:55px 25px 57px;background:radial-gradient(circle at 25% 18%,#fff9edb5,transparent 32%),repeating-linear-gradient(101deg,transparent 0 5px,#8e674508 5px 6px),#f7e7d5;box-shadow:0 0 65px #80503a26;overflow:hidden}
+.cover-polaroid{position:relative;z-index:2;width:min(72vw,300px);margin:0;padding:11px 11px 6px;background:#fffaf1;box-shadow:0 19px 25px #673d2a43,0 2px 5px #6c43284d;transform:rotate(5deg)}
+.cover-polaroid img{display:block;width:100%;height:clamp(235px,40svh,340px);object-fit:cover;object-position:50% 41%}
+.cover-polaroid figcaption{padding:3px 0 0;text-align:center;font:clamp(22px,5.3vw,28px)/1.25 'Marck Script','Segoe Script',cursive;color:#793d32}
+.paper-tape{position:absolute;display:block;background:linear-gradient(94deg,#dbb69b94,#f6e4c4d6 35%,#cf9d7b9c 75%,#e6c8a7bc);border-left:1px solid #b9866380;border-right:1px solid #b9866380;box-shadow:0 2px 3px #593d2b21}
+.cover-polaroid__tape{z-index:2;top:-10px;left:28%;width:43%;height:25px;transform:rotate(-7deg)}
+.cover-copy{z-index:2;display:flex;flex-direction:column;align-items:center;text-align:center}
+.cover-copy h1{position:relative;margin:4px 0 7px;color:#8c3327;font:clamp(56px,14vw,78px)/.82 'Marck Script','Segoe Script',cursive;font-weight:400;text-shadow:0 2px 1px #fff9ef}
+.cover-brush{width:70%;height:12px;margin:0 0 26px;background:linear-gradient(90deg,transparent,#e9a78b 16%,#e9a78b 85%,transparent);clip-path:polygon(1% 40%,98% 7%,100% 42%,0 100%);opacity:.75}
+.cover-open{display:flex;align-items:center;justify-content:center;gap:9px;min-height:52px;padding:10px 20px;border:1px solid #e5b28d;border-radius:99px;background:#fff9eee9;box-shadow:0 8px 14px #864c3440;color:#833c2d;font-size:16px;cursor:pointer}
+.cover-open svg{width:21px;height:21px}
+.cover-open:hover{background:#fff;transform:translateY(-2px)}
+.cover-balloon,.story-balloon{position:absolute;z-index:1;width:77px;height:105px;border-radius:49% 49% 47% 47%;box-shadow:inset -12px -11px 17px #904c334a, inset 12px 13px 13px #fff8eaba,7px 9px 10px #84523a2c}
+.cover-balloon::before,.story-balloon::before{content:'';position:absolute;bottom:-10px;left:calc(50% - 6px);border:6px solid transparent;border-bottom:0;border-top-color:#b8795e}
+.cover-balloon::after,.story-balloon::after{content:'';position:absolute;top:100%;left:50%;width:1px;height:130px;background:#94715a;transform:rotate(9deg);transform-origin:top}
+.cover-balloon--cream{top:7%;left:6%;background:radial-gradient(circle at 28% 25%,#fffdf0,#f1d1a9 63%,#ba8b66)}
+.cover-balloon--peach{top:5%;right:18%;width:86px;height:114px;background:radial-gradient(circle at 28% 25%,#ffe8d6,#eeb092 65%,#b76e55)}
+.cover-balloon--terra{top:13%;right:1%;width:75px;height:100px;background:radial-gradient(circle at 28% 25%,#f7c8af,#c96a4c 68%,#964d3b)}
+.satin-ribbon{position:absolute;display:block;width:210px;height:122px;overflow:visible;transform:rotate(-26deg);pointer-events:none}
+.cover-ribbon--top{top:11%;left:-50px;transform:rotate(33deg)}
+.cover-ribbon--bottom{right:-53px;bottom:10%;transform:rotate(-34deg)}
+.cover-heart{position:absolute;color:#c76448;font:38px/1 'Marck Script',cursive}
+.cover-heart--one{left:13%;top:20%;transform:rotate(-15deg)}
+.cover-heart--two{right:12%;bottom:26%;transform:rotate(18deg)}
+.gift-box{position:absolute;display:block;width:76px;height:69px;background:linear-gradient(120deg,#edbb98 50%,#d88868 50%);border:1px solid #b9674a;box-shadow:7px 10px 12px #743e2d44;transform:rotate(-9deg)}
+.gift-box::before{content:'';position:absolute;left:-6px;top:-11px;width:calc(100% + 12px);height:17px;background:linear-gradient(#f9d5b6,#d9805e);border:1px solid #b9674a}
+.gift-box::after{content:'';position:absolute;z-index:2;top:-11px;left:calc(50% - 7px);width:14px;height:80px;background:linear-gradient(90deg,#a84d3c,#ffe2b9 40%,#c9674c)}
+.gift-box span{position:absolute;z-index:3;top:-27px;left:22%;width:58%;height:22px;border:7px solid #d98160;border-radius:50%;box-shadow:inset 0 2px 3px #fff0d0}
+.cover-gift{bottom:4%;left:3%;width:66px;height:60px}
+
+.card-story{min-height:100svh;overflow:hidden;background:#f4dfcc}
+.story-paper{position:relative;isolation:isolate;max-width:1160px;margin:auto;padding:36px 0 130px;overflow:hidden;background:radial-gradient(circle at 10% 3%,#fff1dd 0,transparent 24%),radial-gradient(circle at 95% 44%,#ffd4b5 0,transparent 24%),repeating-linear-gradient(98deg,transparent 0 5px,#7a4f2e08 5px 6px),#f7dfc8;box-shadow:0 0 50px #61382015}
+.story-return{position:fixed;z-index:40;top:max(12px,env(safe-area-inset-top));left:max(12px,calc((100vw - 1120px)/2));width:42px;height:42px;border:1px solid #c99572;border-radius:50%;background:#fff8edec;box-shadow:0 4px 10px #6d452d30;color:#854c38;font-size:26px;cursor:pointer}
+.story-balloon--top{top:13px;right:11%;background:radial-gradient(circle at 28% 25%,#ffe7d3,#dd9072 65%,#ad5c44);transform:scale(.72)}
+.book-spread{position:relative;min-height:660px;padding:22px 0 28px;perspective:1600px}
+.book-spread + .book-spread{margin-top:12px}
+.book-spread__scene{width:100%;height:610px;display:flex;align-items:center;justify-content:center}
+.book-spread__book{position:relative;display:flex;width:min(900px,88%);height:570px;border:7px solid #84533b;border-radius:14px 19px 19px 14px;background:#8e5a40;box-shadow:0 32px 40px #5c352e5c,0 11px 0 #724431,inset 0 0 0 2px #c29a70;transform:rotate(5deg) rotateX(2deg);transform-style:preserve-3d}
+.book-page{position:relative;width:50%;height:100%;overflow:hidden;background:radial-gradient(circle at 50% 32%,#fff6e5,#f6e4c9 75%,#ddbe97);box-shadow:inset 0 0 17px #b58d6473}
+.book-page--left{border-radius:6px 0 0 7px;background:linear-gradient(90deg,#e1c29e 0,#fff1d9 10%,#f9e8ce 86%,#c7a37d 100%)}
+.book-page--right{border-radius:0 9px 9px 0;background:linear-gradient(90deg,#b8906b 0,#f6e5ca 5%,#fff3de 18%,#f8e5c6 91%,#d5ae84 100%)}
+.book-page::before{content:'';position:absolute;inset:12px;border:1px solid #bc89656b;pointer-events:none}
+.book-page--left p{position:absolute;top:17%;left:20%;width:60%;margin:0;color:#693b30;font:clamp(32px,4vw,45px)/1.3 'Marck Script','Segoe Script',cursive;text-align:center;transform:rotate(-7deg)}
+.book-page__heart{position:absolute;top:53%;left:42%;color:#b64e3d;font-size:47px}
+.book-page__ribbon{bottom:15%;left:-13%;transform:rotate(-37deg)}
+.book-spread__binding{position:absolute;z-index:5;top:0;bottom:0;left:calc(50% - 9px);width:18px;background:linear-gradient(90deg,#81553f,#c6a37d 30%,#fff5dd 48%,#a77b5f 70%,#67442f);box-shadow:0 0 9px #5337298f;pointer-events:none}
+.book-spread__turning-leaf{display:none}
+.photo-print{position:relative;display:block;padding:8px 8px 3px;border:0;background:#fffaf0;box-shadow:0 10px 17px #613d2d45,0 2px 3px #613d2d24;color:#633b30;cursor:zoom-in;text-align:center;transition:filter .2s ease,translate .2s ease}
+.photo-print:hover{filter:brightness(1.04);translate:0 -3px}
+.photo-print__image{display:grid;place-items:center;overflow:hidden;background:#e8d7be}
+.photo-print__image img{display:block;width:100%;height:100%;object-fit:contain}
+.photo-print__caption{display:block;min-height:30px;padding:5px 4px 2px;font:clamp(17px,2vw,24px)/1 'Marck Script','Segoe Script',cursive}
+.book-photo{position:absolute;left:18%;width:64%;padding:8px 8px 5px}
+.book-photo--first{top:5%;transform:rotate(3deg)}
+.book-photo--second{bottom:5%;transform:rotate(-3deg)}
+.book-photo .photo-print__image{height:210px}
+.book-photo::after,.collage-photo::after{content:'';position:absolute;top:-9px;left:35%;width:32%;height:20px;background:linear-gradient(90deg,#f4d7b6a8,#e9c9a7d9,#f5dcc0b0);box-shadow:0 2px 4px #653e2929;transform:rotate(-5deg);pointer-events:none}
+.book-spread--2 .book-photo--first{transform:rotate(-2deg)}
+.book-spread--2 .book-photo--second{transform:rotate(4deg)}
+@keyframes leaf-turn{0%{opacity:1;transform:perspective(900px) rotateY(0deg)}85%{opacity:.96}100%{opacity:0;transform:perspective(900px) rotateY(-175deg)}}
+.book-spread--2.is-turning .book-spread__turning-leaf{position:absolute;z-index:6;display:block;left:50%;top:1%;width:49%;height:98%;background:linear-gradient(90deg,#c9a17d,#fdf0d8 12%,#f7e0bd 90%,#c5a078);box-shadow:9px 12px 18px #5c352e42;transform-origin:left center;backface-visibility:hidden;animation:leaf-turn 1.15s ease-in-out forwards;pointer-events:none}
+
+.envelope-section{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:480px;margin-top:40px;padding:45px 15px 65px}
+.envelope-section__ribbon{top:6%;right:-30px;transform:rotate(-41deg)}
+.envelope-section__gift{left:8%;bottom:9%}
+.surprise-envelope{position:relative;display:block;width:min(430px,84vw);height:295px;padding:0;border:0;background:transparent;filter:drop-shadow(0 18px 15px #73463158);transform:rotate(-7deg);cursor:pointer;transition:transform .25s ease}
+.surprise-envelope:hover{transform:rotate(-6deg) translateY(-6px)}
+.surprise-envelope__back,.surprise-envelope__front,.surprise-envelope__fold{position:absolute;inset:0;border:1px solid #ad7152}
+.surprise-envelope__back{background:linear-gradient(140deg,#e6af86,#b97655)}
+.surprise-envelope__fold{z-index:1;clip-path:polygon(0 0,100% 0,50% 58%);background:linear-gradient(165deg,#f3c9a5,#cb8661);filter:drop-shadow(0 3px 2px #85503b4a)}
+.surprise-envelope__front{z-index:2;clip-path:polygon(0 20%,50% 66%,100% 20%,100% 100%,0 100%);background:linear-gradient(160deg,#d69770,#f0c09a 48%,#c88962)}
+.surprise-envelope__string{position:absolute;z-index:3;top:5%;left:50%;width:2px;height:90%;background:#b38b64;box-shadow:2px 0 2px #68452d77}
+.surprise-envelope__string--a{transform:rotate(-53deg)}
+.surprise-envelope__string--b{transform:rotate(53deg)}
+.surprise-envelope__seal{position:absolute;z-index:4;top:49%;left:calc(50% - 25px);display:grid;place-items:center;width:50px;height:50px;border:2px solid #9f3e31;border-radius:50%;background:radial-gradient(circle at 30% 25%,#e77859,#ae392d 70%);box-shadow:0 4px 7px #683b32a8,inset 0 0 0 3px #e99975;color:#ffe1b5;font-size:31px}
+.surprise-envelope__tag{position:absolute;z-index:5;right:-16px;top:18%;padding:13px 18px 14px;background:#fff1da;box-shadow:0 6px 9px #70462d50;color:#733b30;font:24px/1.05 'Marck Script',cursive;transform:rotate(12deg)}
+.envelope-section__note{position:relative;z-index:2;margin:22px 0 0;color:#7d4735;font:30px/1.12 'Marck Script',cursive;text-align:center;transform:rotate(-4deg)}
+
+.collage{position:relative;width:min(100%,1050px);margin:auto}
+.collage--transition{height:720px}
+.collage--together{height:1100px;margin-top:80px}
+.collage-photo{position:absolute;width:30%;padding:10px 10px 4px}
+.collage-photo .photo-print__image{height:285px}
+.collage-note{position:absolute;padding:13px 18px;background:#fff1db;box-shadow:0 9px 12px #70432c30;color:#713c30;font:clamp(24px,3vw,35px)/1.05 'Marck Script',cursive;transform:rotate(6deg)}
+.collage-note--transition{top:3%;right:5%}
+.collage-photo--12{top:4%;left:5%;transform:rotate(-6deg)}
+.collage-photo--14{top:27%;right:7%;width:29%;transform:rotate(6deg)}
+.collage-photo--15{top:47%;left:29%;width:29%;transform:rotate(-3deg)}
+.collage__ribbon{right:2%;bottom:2%;transform:rotate(-26deg)}
+.collage-photo--06{top:1%;left:5%;transform:rotate(-5deg)}
+.collage-photo--07{top:4%;right:6%;transform:rotate(5deg)}
+.collage-note--together{top:35%;left:24%;transform:rotate(-5deg)}
+.collage-photo--09{top:33%;left:3%;width:28%;transform:rotate(-3deg)}
+.collage-photo--10{top:44%;right:5%;width:31%;transform:rotate(6deg)}
+.collage-photo--13{top:67%;left:10%;width:28%;transform:rotate(-5deg)}
+.collage-photo--11{top:70%;right:11%;width:28%;transform:rotate(4deg)}
+.collage__gift{bottom:2%;left:44%;transform:rotate(10deg)}
+
+.final-letter{position:relative;display:flex;align-items:center;justify-content:center;gap:0;width:min(100%,1060px);min-height:700px;margin:100px auto 0;padding:50px 25px 80px}
+.final-letter__photo{z-index:2;width:40%;padding:12px 12px 30px;transform:rotate(-6deg);margin-right:-35px}
+.final-letter__photo .photo-print__image{height:410px}
+.final-letter__paper{position:relative;z-index:3;width:61%;padding:45px 44px 30px;background:repeating-linear-gradient(92deg,transparent 0 5px,#9e7a5b09 5px 6px),#fff3e2;box-shadow:0 19px 27px #70442d47;color:#633a2d;transform:rotate(2deg)}
+.final-letter__tape{top:-12px;left:38%;width:24%;height:27px;transform:rotate(-7deg)}
+.final-letter__paper h2{margin:0 0 26px;color:#a84231;font:clamp(34px,4vw,50px)/1.05 'Marck Script',cursive;text-align:center}
+.final-letter__text{font-size:clamp(16px,1.65vw,19px);line-height:1.52}
+.final-letter__text p{margin:0 0 13px}
+.final-letter__heart{display:block;color:#b84d39;font-size:38px;text-align:right}
+.final-letter__ribbon{left:-25px;bottom:7%;transform:rotate(20deg)}
+.music-control{position:fixed;z-index:50;right:max(12px,calc((100vw - 1120px)/2));bottom:max(12px,env(safe-area-inset-bottom));display:flex;align-items:flex-end;gap:8px}
+.music-control button{display:grid;place-items:center;width:48px;height:48px;padding:12px;border:1px solid #e5ae88;border-radius:50%;background:#fff8edeb;box-shadow:0 5px 14px #6e402d45;color:#a94635;cursor:pointer}
+.music-control svg{width:20px;height:20px}
+.music-control__message{max-width:220px;padding:9px;border-radius:9px;background:#fff7e8;font-size:13px;line-height:1.35}
+
+.surprise-overlay,.lightbox{position:fixed;inset:0;z-index:100;display:grid;place-items:center;overflow:auto;padding:14px;background:#412f29ad;backdrop-filter:blur(9px)}
+.surprise-card{position:relative;width:min(420px,100%);max-height:calc(100svh - 28px);overflow:auto;padding:34px 23px 25px;background:radial-gradient(circle at 20% 10%,#fff6e5,#eec6a9);box-shadow:0 20px 50px #2d1919a1;transform:rotate(-1deg)}
+.surprise-card__close{position:absolute;z-index:5;top:9px;right:9px;display:grid;place-items:center;width:43px;height:43px;border:0;border-radius:50%;background:#a9694bcf;color:#fff6e8;font:34px/1 Arial,sans-serif;cursor:pointer}
+.surprise-card__tape{z-index:3;top:24px;left:35%;width:30%;height:23px;transform:rotate(-8deg)}
+.surprise-card__photo{display:block;width:100%;padding:10px 10px 5px;border:0;background:#fff8ee;box-shadow:0 8px 15px #75452e5c;cursor:zoom-in;transform:rotate(3deg)}
+.surprise-card__photo img{display:block;width:100%;max-height:53svh;object-fit:contain}
+.surprise-card__note{margin:20px 6px;color:#66382c;font:clamp(28px,7vw,38px)/1.08 'Marck Script',cursive;text-align:center;transform:rotate(-3deg)}
+.surprise-player{display:flex;align-items:center;gap:10px;width:100%;min-height:67px;padding:8px 12px;border:1px solid #e5bd9e;border-radius:99px;background:#fff9edf2;box-shadow:0 7px 16px #7041293d}
+.surprise-player__toggle{flex:none;display:grid;place-items:center;width:48px;height:48px;border:0;border-radius:50%;background:#c86956;color:white;font:23px Arial,sans-serif;cursor:pointer}
+.surprise-player__wave{display:flex;align-items:center;justify-content:center;gap:2px;flex:1;min-width:0;height:40px}
+.surprise-player__wave span{flex:1;max-width:4px;min-width:1px;border-radius:3px;background:#d3c0b4}
+.surprise-player__wave span.is-played{background:#d76d5b}
+.surprise-player__time{font:16px Arial,sans-serif;color:#695348}
+.surprise-card__message{margin:12px 0 0;font-size:13px;text-align:center}
+.lightbox{z-index:200;background:#2d211ce9;backdrop-filter:none}
+.lightbox__panel{width:min(1120px,100%);max-height:calc(100svh - 30px);color:#fff9ed}
+.lightbox__top{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;font-size:14px}
+.lightbox__top button{width:42px;height:42px;border:0;border-radius:50%;background:#e8c6a4;color:#594136;font-size:31px;cursor:pointer}
+.lightbox__image-wrap{display:grid;grid-template-columns:44px minmax(0,1fr) 44px;align-items:center;justify-items:center;gap:4px}
+.lightbox__image-wrap img{grid-column:2;grid-row:1;display:block;max-width:100%;max-height:calc(100svh - 135px);object-fit:contain}
+.lightbox__arrow{grid-row:1;width:40px;height:46px;border:1px solid #fff9ed7a;border-radius:50%;background:#fff9ed22;color:white;font-size:32px;cursor:pointer}
+.lightbox__arrow--prev{grid-column:1}.lightbox__arrow--next{grid-column:3}
+.lightbox__caption{margin:9px 0 0;text-align:center;font-size:14px}
+
+@media(max-width:700px){
+  .story-paper{padding-top:18px}
+  .book-spread{min-height:660px;padding:15px 0 25px}
+  .book-spread__scene{height:630px;display:block}
+  .book-spread__book{--page-w:min(72vw,310px);width:calc(2 * var(--page-w));height:585px;margin-left:calc(23vw - var(--page-w));border-width:6px;transform:rotate(5deg)}
+  .book-page--left p{top:12%;left:auto;right:9px;width:74px;font-size:19px;line-height:1.08;overflow-wrap:anywhere;transform:rotate(-4deg)}
+  .book-page__heart{top:57%;left:auto;right:22px;font-size:28px}
+  .book-page__ribbon{bottom:7%;left:auto;right:-73px;width:155px;height:90px;transform:rotate(-26deg)}
+  .book-photo{left:9%;width:82%;padding:7px 7px 3px}
+  .book-photo--first{top:5%}.book-photo--second{bottom:5%}
+  .book-photo .photo-print__image{height:220px}
+  .envelope-section{min-height:430px;margin-top:30px;padding:35px 10px 50px}
+  .envelope-section__gift{display:none}
+  .surprise-envelope{height:250px}
+  .envelope-section__note{font-size:28px}
+  .collage--transition{height:860px}
+  .collage--together{height:1630px;margin-top:30px}
+  .collage-photo{width:55%;padding:7px 7px 3px}
+  .collage-photo .photo-print__image{height:215px}
+  .collage-photo .photo-print__caption{font-size:18px;min-height:24px}
+  .collage-note{padding:10px 14px;font-size:29px}
+  .collage-note--transition{top:1%;right:4%}
+  .collage-photo--12{top:7%;left:5%;width:52%}
+  .collage-photo--14{top:32%;right:4%;width:51%}
+  .collage-photo--15{top:61%;left:9%;width:54%}
+  .collage-photo--06{top:1%;left:3%;width:53%}
+  .collage-photo--07{top:16%;right:3%;width:53%}
+  .collage-note--together{top:31%;left:5%;font-size:27px}
+  .collage-photo--09{top:38%;left:4%;width:51%}
+  .collage-photo--10{top:50%;right:4%;width:55%}
+  .collage-photo--13{top:68%;left:3%;width:52%}
+  .collage-photo--11{top:81%;right:3%;width:52%}
+  .collage__gift{bottom:1%;left:12%;transform:scale(.7) rotate(10deg)}
+  .final-letter{display:block;min-height:0;margin-top:35px;padding:45px 15px 90px}
+  .final-letter__photo{width:68%;max-width:280px;margin:0 0 -28px 4%;padding:8px 8px 14px;transform:rotate(-5deg)}
+  .final-letter__photo .photo-print__image{height:210px}
+  .final-letter__paper{width:94%;margin-left:auto;padding:39px 24px 20px;transform:rotate(1deg)}
+  .final-letter__paper h2{font-size:41px}
+  .final-letter__text{font-size:17px;line-height:1.55}
+}
+@media(max-width:350px){
+  .cover-composition{padding:44px 15px 40px;gap:13px}
+  .cover-polaroid{width:69vw}.cover-polaroid img{height:36svh}
+  .cover-copy h1{font-size:58px}.cover-brush{margin-bottom:16px}.cover-open{font-size:14px;padding:8px 13px;min-height:46px}
+  .cover-balloon{transform:scale(.75);transform-origin:top}
+  .cover-gift,.cover-heart--two{display:none}
+  .book-spread{min-height:595px}.book-spread__scene{height:565px}
+  .book-spread__book{height:530px}
+  .book-photo .photo-print__image{height:190px}
+  .book-page--left p{right:8px;width:60px;font-size:15px}
+  .collage-photo .photo-print__image{height:185px}
+  .collage--transition{height:780px}.collage--together{height:1500px}
+  .surprise-envelope{height:210px}.surprise-envelope__tag{font-size:20px}
+  .final-letter__paper{padding:35px 19px 20px}.final-letter__paper h2{font-size:36px}.final-letter__text{font-size:16px}
+}
+@media(max-height:620px) and (max-width:700px){
+  .cover-composition{gap:9px;padding:20px 12px 25px}.cover-polaroid img{height:37svh}.cover-copy h1{font-size:56px}.cover-brush{margin-bottom:9px}
+  .surprise-card__photo img{max-height:39svh}.surprise-card__note{margin:12px 4px;font-size:26px}.surprise-card{padding:30px 17px 15px}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}
+  .book-spread--2.is-turning .book-spread__turning-leaf{display:none}
+}
+
+/* Control compositions: cover and the first physical album spread. */
+.card-cover{background:#f4e2d0}
+.cover-composition{
+  display:block;
+  width:min(100%,460px);
+  height:100svh;
+  min-height:0;
+  padding:0;
+  background:
+    radial-gradient(circle at 14% 20%,#fff7e9 0 2px,transparent 3px),
+    radial-gradient(circle at 87% 46%,#d98a6345 0 2px,transparent 3px),
+    radial-gradient(circle at 54% 79%,#fff9ed95,transparent 42%),
+    radial-gradient(circle at 50% 26%,#ffedda,#f3d8c2 90%);
+  box-shadow:0 0 55px #80503a20;
+}
+.cover-polaroid{
+  position:absolute;
+  z-index:3;
+  top:16.6%;
+  left:50%;
+  width:72%;
+  max-width:310px;
+  padding:10px 10px 6px;
+  transform:translateX(-50%) rotate(5deg);
+  box-shadow:0 19px 30px #60362155,0 4px 7px #60362130;
+}
+.cover-polaroid img{height:min(39svh,346px);object-position:50% 15%}
+.cover-polaroid figcaption{padding-top:4px;font-size:clamp(25px,7vw,30px)}
+.cover-polaroid__tape{top:-11px;left:35%;width:34%;height:21px;opacity:.8}
+.cover-copy{position:absolute;z-index:4;top:65%;left:0;width:100%}
+.cover-copy h1{margin:0 0 7px;font-size:clamp(54px,15vw,73px);line-height:.85;color:#8d3329}
+.cover-brush{width:65%;height:9px;margin-bottom:22px;opacity:.68}
+.cover-open{min-height:50px;padding:9px 19px;font-size:15px}
+.cover-decor{position:absolute;display:block;height:auto;pointer-events:none;user-select:none;filter:drop-shadow(2px 5px 5px #8c493522)}
+.cover-decor--balloon{z-index:1;top:-2%;left:-5%;width:27%}
+.cover-decor--balloons{z-index:1;top:-6%;right:-12%;width:47%}
+.cover-decor--ribbon-left{z-index:2;top:25%;left:-19%;width:60%;transform:rotate(91deg)}
+.cover-decor--ribbon-right{z-index:2;right:-10%;bottom:0;width:42%;transform:rotate(-24deg)}
+.cover-decor--gift{z-index:2;bottom:-3%;left:-7%;width:30%;transform:rotate(-13deg)}
+
+.story-paper{
+  background:
+    radial-gradient(circle at 8% 5%,#fff0dd 0 2px,transparent 3px),
+    radial-gradient(circle at 86% 17%,#d8936d37 0 2px,transparent 3px),
+    radial-gradient(circle at 15% 2%,#fff0dc,transparent 33%),
+    radial-gradient(circle at 90% 40%,#f5c9a8,transparent 46%),
+    #f6ddc6;
+}
+.story-balloon--top{display:none}
+.book-spread--1{min-height:650px;padding:18px 0 20px}
+.book-spread--1 .book-spread__scene{height:590px;display:block}
+.book-spread--1 .book-spread__book{
+  --page-w:min(67vw,300px);
+  --book-h:min(130vw,510px);
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  width:calc(var(--page-w) * 2);
+  height:var(--book-h);
+  margin-top:40px;
+  margin-left:calc(28vw - var(--page-w));
+  border:7px solid #865039;
+  border-radius:9px 15px 17px 11px;
+  background:#754530;
+  box-shadow:0 34px 40px #61372466,0 13px 0 #6b3d2b,0 18px 2px #b88969,inset 0 0 0 2px #c18a63;
+  transform:rotate(10deg);
+  transform-style:flat;
+}
+.book-spread--1 .book-spread__book::after{
+  content:'';position:absolute;left:5px;right:5px;bottom:-11px;height:9px;
+  border-radius:0 0 7px 7px;
+  background:repeating-linear-gradient(0deg,#f7e6c9 0 2px,#bb8a68 2px 3px);
+  box-shadow:0 3px 2px #5c302473;
+}
+.book-spread--1 .book-page{width:100%;min-width:0;height:100%;box-shadow:inset 0 0 20px #ac765464}
+.book-spread--1 .book-page--left{background:radial-gradient(circle at 38% 24%,#bc79522b 0 2px,transparent 3px),radial-gradient(circle at 68% 69%,#b76e4d20 0 3px,transparent 4px),linear-gradient(90deg,#dfb998,#fff0d9 11%,#f8e4c8 85%,#b98868)}
+.book-spread--1 .book-page--right{background:radial-gradient(circle at 26% 12%,#b66e5126 0 2px,transparent 3px),radial-gradient(circle at 81% 73%,#b66e5120 0 3px,transparent 4px),linear-gradient(90deg,#ae7757,#f0d5b4 5%,#fff0d5 17%,#f8e4c8 91%,#cf9d75)}
+.book-spread--1 .book-page::before{inset:9px;border-color:#b8845a68}
+.book-spread--1 .book-page--left p{
+  top:12%;left:auto;right:15px;width:110px;
+  font-size:clamp(20px,5.8vw,26px);line-height:1.08;
+  overflow-wrap:normal;transform:rotate(-5deg);
+}
+.book-spread--1 .book-page__heart{top:47%;left:auto;right:43px;font-size:32px}
+.book-spread--1 .book-spread__binding{
+  left:calc(50% - 8px);width:16px;
+  background:linear-gradient(90deg,#6e422e,#b98963 18%,#f9e3c5 39%,#fff6df 48%,#be906b 65%,#754a35);
+  box-shadow:-3px 0 8px #65402d8c,3px 0 6px #69432d70;
+}
+.book-spread--1 .book-photo{left:8%;width:84%;padding:6px 6px 4px}
+.book-spread--1 .book-photo--first{top:5%;transform:rotate(-3deg)}
+.book-spread--1 .book-photo--second{bottom:5%;transform:rotate(2deg)}
+.book-spread--1 .book-photo .photo-print__image{display:flex;align-items:center;justify-content:center;width:100%;height:calc(var(--book-h) * .36)}
+.book-spread--1 .book-photo .photo-print__image img{min-width:0;max-width:100%;object-fit:contain}
+.book-spread--1 .book-photo::after{top:-7px;height:15px;opacity:.75}
+.book-spread--1 .book-spread__ribbon{
+  position:absolute;z-index:6;bottom:-34px;left:51px;width:245px;height:auto;
+  transform:rotate(-16deg);pointer-events:none;filter:drop-shadow(2px 4px 4px #77412c4b);
+}
+
+@media(max-width:350px){
+  .cover-polaroid{width:72%;top:14%}
+  .cover-polaroid img{height:37svh}
+  .cover-copy{top:61%}
+  .cover-copy h1{font-size:clamp(49px,15.5vw,55px)}
+  .cover-brush{margin-bottom:15px}
+  .cover-decor--balloons{width:48%}
+  .cover-decor--gift{width:33%}
+  .book-spread--1{min-height:560px}
+  .book-spread--1 .book-spread__scene{height:510px}
+  .book-spread--1 .book-spread__book{margin-top:35px}
+  .book-spread--1 .book-page--left p{width:87px;font-size:18px}
+  .book-spread--1 .book-spread__ribbon{width:190px;left:45px;bottom:-25px}
+}
+
+/* A single album stays in place while vertical scrolling turns its right leaf. */
+.card-story,.story-paper{overflow:visible}
+.story-paper{
+  background:
+    radial-gradient(ellipse at 82% 5%,#fbdcc6 0,transparent 42%),
+    radial-gradient(ellipse at 8% 38%,#fff0dd 0,transparent 42%),
+    linear-gradient(180deg,#f8e8d6,#f4d9c4 62%,#f8e6d3);
+}
+.final-letter__paper{background:#fff3e2}
+.album-sequence{position:relative;height:180svh}
+.album-sequence__stage{position:sticky;top:0;width:100%;height:100svh;overflow:visible;isolation:isolate}
+.album-decor{position:absolute;display:block;height:auto;pointer-events:none;user-select:none;filter:drop-shadow(2px 6px 7px #78442c3d)}
+.album-decor--balloons{z-index:1;top:-8%;right:-10%;width:42%;transform:rotate(10deg)}
+.album-decor--balloon{z-index:1;bottom:11%;left:-12%;width:29%;transform:rotate(-12deg)}
+.album-decor--gift{z-index:2;bottom:0;left:-7%;width:34%;transform:rotate(-15deg)}
+.album-decor--ribbon-side{z-index:2;top:35%;right:-28%;width:55%;transform:rotate(-45deg)}
+.album-decor--ribbon-bottom{z-index:2;right:-20%;bottom:10%;width:74%;transform:rotate(-22deg)}
+.album-book{
+  --page-w:min(71vw,300px);
+  --book-h:min(130vw,510px);
+  position:absolute;z-index:3;top:89px;left:calc(28vw - var(--page-w));
+  display:grid;grid-template-columns:1fr 1fr;
+  width:calc(2 * var(--page-w));height:var(--book-h);
+  border:7px solid #865039;border-radius:9px 15px 17px 11px;
+  background:#754530;
+  box-shadow:0 35px 42px #61372470,0 12px 0 #6b3d2b,0 18px 2px #b88969,inset 0 0 0 2px #c18a63;
+  transform:rotate(10deg);perspective:1100px;
+}
+.album-book::after{
+  content:'';position:absolute;left:5px;right:5px;bottom:-10px;height:8px;
+  border-radius:0 0 7px 7px;background:linear-gradient(#e6c6a3,#f8e9cf 45%,#bb8a68 55%,#f4debf);
+  box-shadow:0 3px 2px #5c302473;
+}
+.album-book .book-page{width:100%;min-width:0;height:100%;overflow:hidden;box-shadow:inset 0 0 20px #ac765464}
+.album-book__left{
+  grid-column:1;grid-row:1;
+  background:radial-gradient(circle at 38% 24%,#bc79521b 0 2px,transparent 3px),linear-gradient(90deg,#dfb998,#fff0d9 11%,#f8e4c8 85%,#b98868);
+}
+.album-book__under,.album-book__leaf{
+  background:radial-gradient(circle at 81% 73%,#b66e511a 0 3px,transparent 4px),linear-gradient(90deg,#ae7757,#f0d5b4 5%,#fff0d5 17%,#f8e4c8 91%,#cf9d75);
+}
+.album-book__under{grid-column:2;grid-row:1}
+.album-book__leaf{
+  position:absolute;z-index:4;top:0;left:50%;width:50%;height:100%;
+  transform-origin:left center;transform:rotateY(var(--turn-angle));
+  backface-visibility:hidden;box-shadow:5px 4px 14px #5d3c2a65;
+}
+.album-book .album-book__leaf{width:50%}
+.album-book .book-page::before{inset:9px;border-color:#b8845a68}
+.album-book .album-book__caption{
+  position:absolute;top:15%;left:auto;right:18px;width:108px;margin:0;
+  color:#693b30;font:clamp(16px,4.6vw,19px)/1.17 'Marck Script','Segoe Script',cursive;
+  text-align:center;white-space:nowrap;overflow-wrap:normal;transform:rotate(-22deg);transform-origin:top right;transition:opacity .18s ease;
+}
+.album-book__caption--second,.album-sequence.is-second .album-book__caption--first{opacity:0}
+.album-book__caption > span{display:block}
+.album-sequence.is-second .album-book__caption--second{opacity:1}
+.album-book .book-page__heart{top:47%;left:auto;right:43px;font-size:32px}
+.album-book__binding{
+  position:absolute;z-index:5;top:0;bottom:0;left:calc(50% - 8px);width:16px;
+  background:linear-gradient(90deg,#6e422e,#b98963 18%,#f9e3c5 39%,#fff6df 48%,#be906b 65%,#754a35);
+  box-shadow:-3px 0 8px #65402d8c,3px 0 6px #69432d70;pointer-events:none;
+}
+.album-book .book-photo{left:7%;width:80%;padding:6px 6px 4px}
+.album-book .book-photo--first{top:5%;transform:rotate(-3deg)}
+.album-book .book-photo--second{bottom:5%;transform:rotate(2deg)}
+.album-book .book-photo .photo-print__image{display:flex;align-items:center;justify-content:center;width:100%;height:calc(var(--book-h) * .36)}
+.album-book .book-photo .photo-print__image img{min-width:0;max-width:100%;object-fit:contain}
+.album-book .book-photo::after{top:-7px;height:15px;opacity:.75}
+
+@media(min-width:701px){
+  .album-book{--page-w:min(35vw,420px);--book-h:560px;top:90px;left:calc(50% - var(--page-w))}
+  .album-book .album-book__caption{right:15%;width:58%;font-size:34px}
+  .album-decor--balloons{width:21%;right:5%;top:-7%}
+  .album-decor--balloon{width:14%;left:4%}
+  .album-decor--gift{width:17%;left:7%}
+  .album-decor--ribbon-side{width:27%;left:-5%}
+  .album-decor--ribbon-bottom{width:34%;right:1%}
+}
+@media(max-width:350px){
+  .album-book{--book-h:130vw;top:75px}
+  .album-book .album-book__caption{right:16px;width:92px;font-size:16px}
+  .album-decor--gift{width:29%}
+}
+@media(prefers-reduced-motion:reduce){
+  .album-book__leaf{transform:none}
+  .album-sequence.is-second .album-book__leaf{opacity:0;visibility:hidden}
+  .album-book__caption{transition:none}
+}
+
+/* Envelope, memory compositions, letter, and the small audio surprise. */
+.envelope-section{min-height:430px;margin:78px auto 74px;padding:34px 12px 44px}
+.envelope-section__ribbon,.envelope-section__gift{position:absolute;display:block;height:auto;pointer-events:none;filter:drop-shadow(2px 5px 6px #7141283d)}
+.envelope-section__ribbon{z-index:1;top:-5%;right:-9%;width:43%;transform:rotate(-32deg)}
+.envelope-section__gift{z-index:1;left:-4%;bottom:0;width:25%;transform:rotate(-14deg)}
+.surprise-envelope{z-index:2;width:min(390px,88vw);height:auto;filter:drop-shadow(0 19px 15px #67382570);transform:rotate(-9deg)}
+.surprise-envelope:hover{transform:rotate(-8deg) translateY(-4px)}
+.surprise-envelope__image{display:block;width:100%;height:auto}
+.surprise-envelope__tag{top:19%;right:-2%;padding:10px 14px 11px;border:1px solid #e8ccaa;background:#fff2df;box-shadow:0 5px 9px #75452b47;font-size:clamp(20px,5.6vw,26px);transform:rotate(10deg)}
+.envelope-section__note{max-width:225px;margin:8px 3% 0 auto;font-size:clamp(21px,5.4vw,26px);line-height:1.15;transform:rotate(-3deg)}
+
+.collage{isolation:isolate}
+.collage--transition{height:720px;margin-top:30px}
+.collage--together{height:1480px;margin-top:75px}
+.collage-photo{z-index:2;padding:8px 8px 4px;box-shadow:0 13px 21px #683d2d3d,0 2px 4px #683d2d24}
+.collage-photo .photo-print__image{display:flex;align-items:center;justify-content:center;width:100%;height:var(--photo-h,220px)}
+.collage-photo .photo-print__image img{display:block;min-width:0;max-width:100%;width:100%;height:100%;object-fit:contain}
+.collage-photo .photo-print__caption{min-height:25px;padding:5px 1px 2px;font-size:clamp(17px,4.7vw,22px)}
+.collage-note{z-index:3;border:1px solid #ecd6bb;background:#fff1dc;box-shadow:0 9px 13px #71412c2f}
+.collage-note--transition{top:46%;left:1%;right:auto;width:40%;font-size:22px;transform:rotate(-6deg)}
+.collage-note--together{top:27%;left:3%;width:44%;font-size:22px;transform:rotate(-7deg)}
+.collage-photo--12{--photo-h:235px;top:2%;left:-2%;width:59%;transform:rotate(-7deg)}
+.collage-photo--14{--photo-h:245px;top:18%;right:-2%;width:55%;transform:rotate(7deg)}
+.collage-photo--15{--photo-h:260px;top:54%;left:15%;width:61%;transform:rotate(-4deg)}
+.collage-photo--06{--photo-h:185px;top:1%;left:-2%;width:62%;transform:rotate(-6deg)}
+.collage-photo--07{--photo-h:190px;top:16%;right:-3%;width:62%;transform:rotate(7deg)}
+.collage-photo--09{--photo-h:250px;top:34%;left:-1%;width:59%;transform:rotate(-5deg)}
+.collage-photo--10{--photo-h:180px;top:51%;right:-3%;width:66%;transform:rotate(5deg)}
+.collage-photo--13{--photo-h:245px;top:69%;left:-2%;width:57%;transform:rotate(-6deg)}
+.collage-photo--11{--photo-h:245px;top:78%;right:1%;width:56%;transform:rotate(5deg)}
+.collage__ribbon,.collage__gift{position:absolute;display:block;height:auto;pointer-events:none;filter:drop-shadow(2px 5px 5px #74412c38)}
+.collage__ribbon--transition{z-index:1;right:-11%;bottom:2%;width:65%;transform:rotate(-24deg)}
+.collage__ribbon--together{z-index:1;top:61%;left:-16%;width:53%;transform:rotate(16deg)}
+.collage__gift{z-index:1;bottom:-1%;left:-5%;width:30%;transform:rotate(-9deg)}
+
+.final-letter{margin-top:85px;min-height:0;padding:45px 20px 130px}
+.final-letter__photo{width:42%;padding:10px 10px 25px;box-shadow:0 17px 26px #683c2d4f;transform:rotate(-7deg)}
+.final-letter__photo .photo-print__image{display:flex;align-items:center;justify-content:center;width:100%;height:360px}
+.final-letter__photo .photo-print__image img{width:100%;height:100%;object-fit:contain}
+.final-letter__paper{width:61%;padding:50px 48px 45px;border:1px solid #e6c7a7;border-radius:2px 1px 3px 2px;background:linear-gradient(135deg,#fff9ed 0,#fff2df 58%,#f5dfc9 100%);box-shadow:0 24px 38px #65402d4d,7px 9px 0 #e5cbb0,9px 12px 11px #58372835;transform:rotate(1deg)}
+.final-letter__tape{top:-12px;left:42%;width:20%;height:23px;opacity:.8}
+.final-letter__paper h2{margin:0 0 24px;color:#a64432;font-size:clamp(38px,4.2vw,54px);line-height:1.03}
+.final-letter__text{font-size:clamp(17px,1.65vw,19px);line-height:1.65}
+.final-letter__text p{margin:0 0 18px}
+.final-letter__heart{font-size:33px}
+.final-letter__ribbon{position:absolute;z-index:1;left:-4%;bottom:0;width:28%;height:auto;transform:rotate(18deg);pointer-events:none;filter:drop-shadow(2px 5px 6px #74412c3b)}
+
+.surprise-overlay{background:#50352c8a;backdrop-filter:blur(12px)}
+.surprise-card{width:min(390px,100%);padding:20px 18px 22px;background:linear-gradient(145deg,#fff1de,#edc2a7);box-shadow:0 22px 55px #34201894;transform:rotate(-1deg)}
+.surprise-card__close{top:8px;right:8px;width:42px;height:42px;background:#995a42d9}
+.surprise-card__tape{top:13px;left:39%;width:23%;height:19px}
+.surprise-card__photo{padding:8px 8px 5px;transform:rotate(2deg)}
+.surprise-card__photo img{max-height:min(43svh,390px)}
+.surprise-card__note{position:relative;margin:4px -6px 14px;padding:8px 10px 10px;background:#fff0dd;box-shadow:0 5px 9px #71412b32;font-size:clamp(25px,6.7vw,32px);line-height:1.05;transform:rotate(-2deg)}
+.surprise-player{min-height:64px}
+
+@media(max-width:700px){
+  .envelope-section{min-height:390px;margin-top:76px;margin-bottom:44px;padding:25px 10px 38px}
+  .envelope-section__gift{display:block;left:-8%;bottom:0;width:29%}
+  .envelope-section__ribbon{top:-4%;right:-14%;width:55%}
+  .surprise-envelope{height:auto;width:min(370px,88vw)}
+  .envelope-section__note{font-size:23px}
+  .collage--transition{height:720px}
+  .collage--together{height:1480px;margin-top:64px}
+  .collage-photo{padding:7px 7px 4px}
+  .collage-photo--12{width:59%;left:-2%;top:2%}
+  .collage-photo--14{width:55%;right:-2%;top:18%}
+  .collage-photo--15{width:61%;left:15%;top:54%}
+  .collage-photo--06{width:62%;left:-2%;top:1%}
+  .collage-photo--07{width:62%;right:-3%;top:16%}
+  .collage-photo--09{width:59%;left:-1%;top:34%}
+  .collage-photo--10{width:66%;right:-3%;top:51%}
+  .collage-photo--13{width:57%;left:-2%;top:69%}
+  .collage-photo--11{width:56%;right:1%;top:78%}
+  .collage-note{padding:9px 11px;font-size:22px}
+  .collage-note--transition{top:46%;left:1%;right:auto}
+  .collage-note--together{top:27%;left:3%;font-size:22px}
+  .final-letter{display:block;margin-top:54px;padding:34px 15px 112px}
+  .final-letter__photo{z-index:4;width:70%;max-width:295px;margin:0 0 -27px 2%;padding:8px 8px 16px;transform:rotate(-7deg)}
+  .final-letter__photo .photo-print__image{height:215px}
+  .final-letter__paper{z-index:3;width:95%;margin-left:auto;padding:43px 24px 54px;transform:rotate(1deg)}
+  .final-letter__paper h2{font-size:clamp(35px,10.4vw,44px)}
+  .final-letter__text{padding-right:32px;font-size:17px;line-height:1.64}
+  .final-letter__ribbon{left:-13%;bottom:0;width:58%}
+}
+@media(max-width:350px){
+  .envelope-section{min-height:340px}
+  .surprise-envelope{width:89vw}
+  .surprise-envelope__tag{top:19%;right:-1%;font-size:18px;padding:7px 10px}
+  .envelope-section__note{font-size:20px}
+  .collage--transition{height:655px}
+  .collage--together{height:1350px}
+  .collage-photo{padding:6px 6px 3px}
+  .collage-photo .photo-print__image{height:calc(var(--photo-h,220px) * .81)}
+  .collage-photo .photo-print__caption{font-size:15px}
+  .collage-note{font-size:18px}
+  .collage-note--together{font-size:18px}
+  .final-letter{padding:30px 10px 100px}
+  .final-letter__paper{width:96%;padding:39px 19px 44px}
+  .final-letter__paper h2{font-size:35px}
+  .final-letter__text{padding-right:50px;font-size:16px;line-height:1.6}
+  .surprise-card{padding:17px 14px 18px}
+  .surprise-card__photo img{max-height:41svh}
+  .surprise-card__note{font-size:24px}
+}
+
+/* Approved audit: small paper accents, cover paint, envelope cue and letter B. */
+.paper-confetti{position:absolute;z-index:0;inset:0;overflow:hidden;pointer-events:none;user-select:none}
+.paper-confetti__piece{position:absolute;display:block;clip-path:polygon(8% 0,100% 9%,89% 100%,0 85%);background:#cb7955;opacity:.58}
+.paper-confetti__piece--1{background:#fff5df;opacity:.85;clip-path:polygon(0 12%,89% 0,100% 81%,14% 100%)}
+.paper-confetti__piece--2{background:#dfa17f;opacity:.65}
+.paper-confetti__piece.is-dot{clip-path:none;border-radius:50%}
+.cover-copy h1{z-index:1}
+.cover-brush{position:relative;overflow:visible;background:none;clip-path:none;opacity:1}
+.cover-brush__paint{position:absolute;width:280px;max-width:85vw;height:54px;left:50%;top:-32px;transform:translateX(-50%);z-index:-1;pointer-events:none}
+.cover-open{position:relative;isolation:isolate;overflow:hidden}
+.cover-open{background:#eed6bd;border-color:#cfa07c}
+.cover-open svg,.cover-open span{position:relative;z-index:1}
+.cover-open::before{content:'';position:absolute;z-index:0;inset:-20% -70%;background:linear-gradient(110deg,transparent 39%,#fff7df80 46%,#fffdf3ed 50%,#fff7df80 54%,transparent 61%);transform:translateX(-70%);animation:cover-button-glint 8s .4s infinite;pointer-events:none}
+@keyframes cover-button-glint{0%{transform:translateX(-70%)}19%,100%{transform:translateX(70%)}}
+.envelope-section__arrow{position:absolute;z-index:4;top:0;left:50%;width:min(100%,444px);height:auto;aspect-ratio:1;transform:translateX(-50%);color:#9b543c;pointer-events:none}
+.surprise-envelope:active{transform:rotate(-9deg) scale(.985);filter:drop-shadow(0 12px 11px #67382560)}
+.final-letter__paper{padding:42px 23px 26px;transform:rotate(.35deg)}
+.final-letter__text{padding-right:0;font:17px/1.48 Georgia,'Times New Roman',serif;text-align:left;color:#633a2d}
+.final-letter__text p{margin:0 0 13px}
+.final-letter__text p:first-child{font:24px/1.13 'Marck Script','Segoe Script',cursive;margin-bottom:17px;color:#8d3329}
+.final-letter__text p:last-child{margin-bottom:6px}
+.final-letter__heart{font:29px/1 'Marck Script',cursive;margin-top:8px}
+/* A reading toolbar masks the scrolling paper only once it reaches the controls. */
+.card-story--reading-letter::before{content:'';position:fixed;z-index:39;top:0;left:0;right:0;height:calc(max(12px,env(safe-area-inset-top)) + 60px);background:#f8e8d6;pointer-events:none}
+@media(max-width:700px){
+  .final-letter__paper{width:100%}
+}
+@media(max-width:350px){
+  .envelope-section__arrow{top:12px}
+}
+@media(prefers-reduced-motion:reduce){
+  .cover-open::before{animation:none;display:none}
+}
+
+/* Local refinements approved for visual review; existing compositions stay fixed. */
+.cover-polaroid .cover-polaroid__pushpin{position:absolute;z-index:4;left:30%;top:-21px;width:33px;height:33px;max-width:none;object-fit:contain;transform:translateX(-50%) rotate(-4deg);filter:drop-shadow(1px 2px 1px #57332666);pointer-events:none}
+.hand-drawn-flower{stroke:#905543;stroke-width:1.35;stroke-linecap:round;stroke-linejoin:round}
+.collage-note__flower{display:inline-block;width:23px;height:24px;margin-left:1px;vertical-align:-4px;transform:rotate(-8deg)}
+.collage-note{text-align:center}
+.surprise-player__wave{position:relative;height:44px}
+.surprise-player__seek{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:ew-resize;touch-action:none;appearance:none;-webkit-appearance:none}
+.surprise-player__seek::-webkit-slider-thumb{appearance:none;-webkit-appearance:none;width:2px;height:44px}
+.surprise-player__seek::-moz-range-thumb{width:2px;height:44px;border:0}
+.surprise-player__wave:focus-within{outline:2px solid #ad4f32;outline-offset:3px;border-radius:4px}
+.surprise-card__wink{display:inline-block;font-family:'Segoe UI Emoji','Apple Color Emoji',sans-serif;font-size:.65em;vertical-align:1px}
+.surprise-card__note{font-size:clamp(22px,6vw,27px)}
+.surprise-envelope__art{display:block;position:relative;animation:envelope-invitation 3s 1s ease-in-out infinite;transform-origin:50% 65%}
+@keyframes envelope-invitation{0%,30%,100%{transform:rotate(0) scale(1)}46.333%{transform:rotate(1deg) scale(1.01)}62.666%{transform:rotate(-.8deg) scale(1.015)}79%{transform:rotate(.4deg) scale(1.005)}}
+@media(max-width:700px){
+  .album-decor--gift{left:10%;bottom:-25px;transform:rotate(30deg)}
+  .album-book__caption > span:nth-child(2){transform:translateX(-5px)}
+  .album-book__caption > span:nth-child(3){transform:translateX(-12px)}
+  .album-book__caption > span:nth-child(4){transform:translateX(-22px)}
+}
+.opening-confetti{position:fixed;z-index:80;inset:0;overflow:hidden;pointer-events:none;user-select:none}
+.opening-confetti__piece{position:absolute;left:50%;top:45%;width:8px;height:12px;background:var(--paper-color);clip-path:polygon(6% 0,100% 8%,88% 100%,0 90%);opacity:0;animation:opening-paper-flight 2.85s linear var(--delay) both}
+.opening-confetti__piece--1{width:6px;height:9px;clip-path:polygon(0 15%,88% 0,100% 85%,11% 100%)}
+.opening-confetti__piece--2{width:5px;height:7px}
+@keyframes opening-paper-flight{
+  0%{opacity:0;transform:translate(0,0) rotate(0) scale(.5);animation-timing-function:cubic-bezier(.12,.65,.3,1)}
+  7%{opacity:1}
+  25%{opacity:1;transform:translate(var(--burst-x),var(--burst-y)) rotate(calc(var(--spin) * .35)) scale(1);animation-timing-function:cubic-bezier(.4,.25,.65,.85)}
+  70%{opacity:.9;transform:translate(var(--float-x),var(--float-y)) rotate(calc(var(--spin) * .75)) scale(.95)}
+  100%{opacity:0;transform:translate(var(--landing-x),var(--fall-y)) rotate(var(--spin)) scale(.85)}
+}
+@media(prefers-reduced-motion:reduce){
+  .surprise-envelope__art{animation:none}
+  .opening-confetti{display:none}
+}
+
+/* Client feedback: an unobtrusive vertical-scroll cue and the final surprise. */
+.album-scroll-hint{position:fixed;z-index:30;left:50%;bottom:max(22px,env(safe-area-inset-bottom));width:48px;height:72px;transform:translateX(-50%);color:#9b543c;opacity:0;transition:opacity .4s ease;pointer-events:none;user-select:none}
+.album-scroll-hint.is-visible{opacity:1}
+.album-scroll-hint__arrow{display:block;width:48px;height:72px;filter:drop-shadow(0 1px 1px #fff2d9);animation:album-scroll-cue 2s ease-in-out infinite}
+@keyframes album-scroll-cue{0%,100%{transform:translateY(-2px)}50%{transform:translateY(3px)}}
+.envelope-section{width:min(100%,650px);min-height:0;margin:0 auto 24px;padding:clamp(102px,28vw,125px) 12px 86px}
+.envelope-section__ribbon{top:12%;right:-17%}
+.envelope-section__note{position:absolute;top:8px;left:20px;right:auto;max-width:none;width:62%;margin:0;text-align:left;font-size:clamp(22px,6.2vw,28px);line-height:1.12;transform:rotate(-5deg)}
+.envelope-section__arrow{top:0;width:min(100%,390px);aspect-ratio:390/430}
+.envelope-section__gift{left:auto;right:5%;bottom:-44px;transform:rotate(1deg)}
+.story-paper{padding-bottom:32px}
+@media(max-height:620px) and (max-width:700px){
+  .album-scroll-hint{top:32px;bottom:auto}
+}
+@media(prefers-reduced-motion:reduce){
+  .album-scroll-hint{transition:none}
+  .album-scroll-hint__arrow{animation:none}
+}
+/* Оформление всех экранов открытки Полины: прованская палитра, бумага, лаванда и мобильная сетка дополнительных фото. Механика переходов и просмотра снимков сохранена. */
+:root{color:#514b45;background:#f4f0e8}
+.card-cover,.card-story{--cream:#faf6ec;--paper:#eee8dd;--peach:#d9ccdb;--terra:#897994;--ink:#514b45}
+.card-cover{background:radial-gradient(circle at 50% 40%,#fcf9f3,#e9e6dc)}
+.cover-composition,.story-paper{background:radial-gradient(circle at 22% 15%,#fffdf5,transparent 36%),repeating-linear-gradient(101deg,transparent 0 5px,#6e6a5709 5px 6px),#f0ede3}
+.cover-copy h1,.cover-polaroid figcaption,.album-book__caption,.collage-note,.final-letter__text,.envelope-section__note,.surprise-card__note{color:#615a68}
+.cover-open,.story-return{background:#fbf9f1;color:#665b75;border-color:#beb3c5}
+.cover-brush{background:linear-gradient(90deg,transparent,#afa0b9 16%,#afa0b9 85%,transparent)}
+.cover-polaroid,.photo-print,.final-letter__paper{background:#fffdf6}
+.cover-decor--balloon,.cover-decor--balloons,.cover-decor--gift,.album-decor--balloon,.album-decor--balloons,.album-decor--gift,.collage__gift,.envelope-section__gift{opacity:.7;filter:saturate(.65);object-fit:contain}
+.cover-decor--balloon{top:0;left:-8%}.cover-decor--balloons{top:0;right:-12%}.cover-decor--gift{bottom:-2%;left:-10%}
+.album-book,.book-page{filter:sepia(.06)}
+.extra-gallery{position:relative;max-width:800px;margin:35px auto 75px;padding:25px 18px;background:#f7f4ec}
+.extra-gallery h2{margin:0 0 22px;text-align:center;color:#665b75;font:38px/1.15 'Marck Script',cursive}
+.extra-gallery__grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.extra-gallery__grid .photo-print{width:100%;transform:rotate(-1deg)}
+.extra-gallery__grid .photo-print:nth-child(even){transform:rotate(2deg)}
+.extra-gallery__grid .photo-print__image{height:220px}
+.surprise-video{display:block;width:100%;max-height:42svh;margin-top:12px;background:#2b2928}
+.surprise-card{background:#f3eee6}
+@media(max-width:430px){.extra-gallery{margin:18px 12px 55px;padding:22px 12px}.extra-gallery__grid{gap:12px}.extra-gallery__grid .photo-print__image{height:145px}.cover-polaroid img{height:clamp(200px,37svh,320px)}.cover-composition{padding-top:35px;padding-bottom:35px}.cover-copy h1{font-size:clamp(51px,13vw,72px)}}
+@media(max-width:340px){.extra-gallery__grid .photo-print__image{height:125px}.cover-decor--gift{opacity:.3}}
+
+/* Украшения открытки Полины на обложке, в альбоме и письме: прозрачные ассеты Прованса занимают места прежнего декора. Цвета частиц обновлены, их формы, прозрачность и анимации сохранены. */
+.cover-decor--balloon,.cover-decor--balloons,.cover-decor--gift,.album-decor--balloon,.album-decor--balloons,.album-decor--gift,.collage__gift,.envelope-section__gift{opacity:1;filter:drop-shadow(2px 5px 5px #6e626020)}
+.cover-decor--lavender-sprig{z-index:1;top:10%;left:-7%;width:27%;transform:rotate(-22deg);filter:none}
+.cover-decor--lavender-composition{z-index:1;right:-10%;bottom:10%;width:46%;transform:rotate(-14deg);filter:none}
+.cover-decor--balloon{top:0;left:-7%;width:21%}
+.cover-decor--balloons{top:-5%;right:-8%;width:34%}
+.cover-decor--gift{left:-3%;bottom:0;width:24%;transform:rotate(-13deg)}
+.album-decor--lavender-bouquet{z-index:1;left:-8%;bottom:15%;width:25%;max-height:50%;object-fit:contain;transform:rotate(-16deg);filter:none}
+.album-decor--balloons{width:30%;right:-7%;top:-7%}
+.album-decor--balloon{width:18%;left:-7%;bottom:8%}
+.album-decor--gift{width:25%;left:-4%;bottom:0}
+.collage__lavender{position:absolute;z-index:1;right:-9%;bottom:5%;width:37%;height:auto;pointer-events:none}
+.final-letter__lavender{position:absolute;z-index:1;right:-4%;bottom:0;width:20%;max-height:34%;object-fit:contain;pointer-events:none;transform:rotate(18deg)}
+.paper-confetti__piece{background:#B5A3C7}
+.paper-confetti__piece--1{background:#DFD2BD}
+.paper-confetti__piece--2{background:#9DA88B}
+.hand-drawn-flower{stroke:#927B9D}
+@media(max-width:430px){
+  .cover-decor--lavender-sprig{top:8%;left:-11%;width:28%}
+  .cover-decor--lavender-composition{right:-14%;bottom:12%;width:53%}
+  .cover-decor--balloon{left:-5%;width:19%}
+  .cover-decor--balloons{right:-9%;width:31%}
+  .cover-decor--gift{left:-4%;width:26%}
+  .album-decor--lavender-bouquet{left:-8%;bottom:7%;width:28%}
+  .album-decor--balloons{width:26%;right:-5%}
+  .album-decor--balloon{width:16%;left:-5%}
+  .album-decor--gift{left:4%;width:23%}
+  .collage__lavender{right:-13%;width:45%}
+  .final-letter__lavender{right:-8%;width:29%}
+}
+
+/* Палитра всех экранов открытки Полины: фон, бумага, альбом, управление и модальные окна получают единые цвета Прованса. Геометрия, шрифты, фотографии, декоративные ассеты и анимации не меняются. */
+:root{color:#60564D;background:#F7F1E7}
+button:focus-visible{outline-color:#927B9D}
+.card-cover,.card-story{--cream:#F7F1E7;--paper:#FFFCF5;--peach:#B5A3C7;--terra:#927B9D;--ink:#60564D;color:#60564D}
+.card-cover,.card-story{background:#F7F1E7}
+.cover-composition,.story-paper{background:radial-gradient(circle at 22% 15%,#FFFCF5 0,transparent 36%),radial-gradient(circle at 92% 72%,#DFD2BD66 0,transparent 40%),repeating-linear-gradient(101deg,transparent 0 5px,#60564D08 5px 6px),#F7F1E7;box-shadow:0 0 55px #5C52651b}
+.cover-polaroid,.photo-print,.surprise-card__photo{background:#FFFCF5;color:#60564D;box-shadow:0 15px 24px #5C526538,0 2px 5px #5C526526}
+.cover-polaroid figcaption,.cover-copy h1,.album-book .album-book__caption,.collage-note,.envelope-section__note,.surprise-card__note,.extra-gallery h2{color:#5C5265}
+.cover-brush{background:linear-gradient(90deg,transparent,#B5A3C7 16%,#927B9D 85%,transparent)}
+.cover-open,.story-return{background:#FFFCF5;color:#5C5265;border-color:#B5A3C7;box-shadow:0 7px 14px #5C52652b}
+.cover-open:hover{background:#FFFCF5}
+.paper-tape,.book-photo::after,.collage-photo::after{background:linear-gradient(94deg,#DFD2BD94,#FFFCF5d6 35%,#B5A3C79c 75%,#DFD2BDbc);border-color:#927B9D55;box-shadow:0 2px 3px #5C526526}
+.album-book{background:#927B9D;border-color:#75647F;box-shadow:0 35px 42px #5C52654f,0 12px 0 #75647F,0 18px 2px #B5A3C7,inset 0 0 0 2px #DFD2BD;filter:none}
+.album-book::after{background:linear-gradient(#B5A3C7,#FFFCF5 45%,#927B9D 55%,#DFD2BD);box-shadow:0 3px 2px #5C526540}
+.album-book .book-page{filter:none;box-shadow:inset 0 0 20px #927B9D4a}
+.album-book__left{background:radial-gradient(circle at 38% 24%,#927B9D20 0 2px,transparent 3px),linear-gradient(90deg,#B5A3C7,#F7F1E7 11%,#DFD2BD 85%,#B5A3C7)}
+.album-book__under,.album-book__leaf{background:radial-gradient(circle at 81% 73%,#9DA88B29 0 3px,transparent 4px),linear-gradient(90deg,#927B9D,#DFD2BD 5%,#F7F1E7 17%,#DFD2BD 91%,#B5A3C7)}
+.album-book__leaf{box-shadow:5px 4px 14px #5C526545}
+.album-book .book-page::before{border-color:#927B9D68}
+.album-book__binding{background:linear-gradient(90deg,#5C5265,#927B9D 18%,#DFD2BD 39%,#FFFCF5 48%,#B5A3C7 65%,#5C5265);box-shadow:-3px 0 8px #5C526560,3px 0 6px #5C526545}
+.book-page__heart,.final-letter__heart,.cover-heart{color:#927B9D}
+.photo-print__image{background:#DFD2BD}
+.collage-photo{box-shadow:0 13px 21px #5C52653d,0 2px 4px #5C526524}
+.collage-note{background:#FFFCF5;border-color:#DFD2BD;box-shadow:0 9px 13px #5C526529}
+.extra-gallery{background:#F7F1E7}
+.final-letter__paper{background:repeating-linear-gradient(92deg,transparent 0 5px,#60564D08 5px 6px),#FFFCF5;border-color:#DFD2BD;color:#60564D;box-shadow:0 24px 38px #5C52653a,7px 9px 0 #DFD2BD,9px 12px 11px #5C526526}
+.final-letter__text{color:#60564D}
+.final-letter__text p:first-child,.final-letter__paper h2{color:#5C5265}
+.final-letter__text .final-letter__closing{font:24px/1.13 'Marck Script','Segoe Script',cursive;color:#5C5265}
+.card-story--reading-letter::before{background:#F7F1E7}
+.envelope-section__arrow,.album-scroll-hint{color:#927B9D}
+.album-scroll-hint__arrow{filter:drop-shadow(0 1px 1px #FFFCF5)}
+.surprise-envelope,.surprise-envelope:active{filter:drop-shadow(0 18px 15px #5C526540)}
+.surprise-overlay{background:#5C52658a}
+.surprise-card{background:linear-gradient(145deg,#FFFCF5,#DFD2BD);box-shadow:0 22px 55px #5C52656b;color:#60564D}
+.surprise-card__close{background:#927B9D;color:#FFFCF5}
+.surprise-card__note{background:#FFFCF5;box-shadow:0 5px 9px #5C52652b}
+.surprise-player,.music-control__message{background:#FFFCF5;border-color:#DFD2BD;color:#60564D}
+.surprise-player__toggle{background:#927B9D}
+.surprise-player__wave span{background:#DFD2BD}
+.surprise-player__wave span.is-played{background:#927B9D}
+.surprise-player__time{color:#60564D}
+.surprise-player__wave:focus-within{outline-color:#927B9D}
+.lightbox{background:#5C5265ed}
+.lightbox__panel{color:#FFFCF5}
+.lightbox__top button{background:#DFD2BD;color:#5C5265}
+.lightbox__arrow{border-color:#FFFCF57a;background:#FFFCF522;color:#FFFCF5}
+.music-control button{border-color:#B5A3C7;background:#FFFCF5;color:#927B9D;box-shadow:0 5px 14px #5C526533}
+
+/* Завершение палитры открытки Полины: у лент, лаванды и канцелярской кнопки убраны тёплые тени; блик кнопки согласован с цветом бумаги. Положение и анимация этих элементов сохранены. */
+.cover-decor--ribbon-left,.cover-decor--ribbon-right,.album-decor--ribbon-side,.album-decor--ribbon-bottom,.collage__ribbon,.final-letter__ribbon,.envelope-section__ribbon{filter:drop-shadow(2px 5px 6px #5C526536)}
+.cover-polaroid .cover-polaroid__pushpin{filter:drop-shadow(1px 2px 1px #5C52654d)}
+.cover-open::before{background:linear-gradient(110deg,transparent 39%,#FFFCF580 46%,#FFFCF5ed 50%,#FFFCF580 54%,transparent 61%)}
+/* Фото на первом экране Полины: снимок целиком помещается в прежнюю бумажную рамку, без изменения её размера, наклона и оформления. */
+.cover-polaroid .cover-polaroid__portrait{object-fit:contain;background:#FFFCF5}
+
+/* Компоновка снимков Полины: альбом листается как прежде, два коллажа собираются из бумажных карточек без пустых промежутков, а ручной слайдер занимает место прежней сетки. */
+.album-sequence{height:155svh}
+/* Коллажи Полины: размеры карточек сохранены, а позиции и отдельные наклоны собраны плотнее. Перекрываются преимущественно края рамок, лица остаются открытыми. */
+.collage--transition,.collage--together{display:block;width:min(100%,650px);margin:26px auto 0;padding:0;height:min(235vw,1528px)}
+.collage--together{height:min(318vw,2067px);margin-top:0}
+.collage .collage-photo{position:absolute;right:auto;bottom:auto;left:auto;width:70%;padding:7px 7px 4px}
+.collage .collage-photo .photo-print__image{height:auto;background:transparent}
+.collage .collage-photo .photo-print__image img{display:block;width:100%;height:auto;object-fit:contain}
+.collage .collage-photo--slot-1{z-index:2;transform:rotate(-5deg)}
+.collage .collage-photo--slot-2{z-index:3;transform:rotate(5deg)}
+.collage .collage-photo--slot-3{z-index:4;transform:rotate(-3deg)}
+.collage .collage-photo--slot-4{z-index:5;transform:rotate(4deg)}
+.collage .collage-photo--slot-5{z-index:6;transform:rotate(-4deg)}
+.collage--transition .collage-photo--slot-1{top:min(15vw,98px);left:4%;width:59%;transform:rotate(-4deg)}
+.collage--transition .collage-photo--slot-2{top:min(47vw,306px);right:3%;width:55%;transform:rotate(5deg)}
+.collage--transition .collage-photo--slot-3{top:min(118vw,767px);left:12%;width:57%;transform:rotate(-2deg)}
+.collage--transition .collage-photo--slot-4{top:min(183vw,1190px);right:7%;width:59%;transform:rotate(4deg)}
+.collage--together .collage-photo--slot-1{top:min(15vw,98px);left:4%;width:61%;transform:rotate(-4deg)}
+.collage--together .collage-photo--slot-2{top:min(53vw,345px);right:3%;width:57%;transform:rotate(5deg)}
+.collage--together .collage-photo--slot-3{top:min(121vw,787px);left:8%;width:57%;transform:rotate(-4deg)}
+.collage--together .collage-photo--slot-4{z-index:6;top:min(180vw,1170px);left:16%;width:57%;transform:rotate(3deg)}
+.collage--together .collage-photo--slot-5{z-index:7;top:min(237vw,1540px);right:5%;width:59%;transform:rotate(-4deg)}
+.collage .collage-note{z-index:8;top:9px;right:3%;left:auto;width:auto;max-width:50%;font-size:clamp(18px,5vw,26px);transform:rotate(-4deg)}
+.collage--transition .collage__ribbon{right:-6%;bottom:0;width:46%}
+.collage--together .collage__ribbon{top:auto;left:-10%;bottom:5%;width:42%}
+.collage--together .collage__gift{left:0;bottom:0;width:22%}
+.collage--together .collage__lavender{right:-7%;bottom:0;width:30%}
+/* Слайдер Полины: соседние фотокарточки выглядывают за центральной и плавно уходят в стороны без прокрутки страницы; бумажные рамки и существующая палитра сохранены. */
+.photo-slider{max-width:680px;margin:12px auto 50px;padding:58px 0 25px;text-align:center}
+.photo-slider h2{margin:0 0 18px;color:#5C5265;font:38px/1.15 'Marck Script',cursive}
+.photo-slider__row{position:relative;display:block;width:100%;height:min(63svh,560px)}
+.photo-slider__stage{position:relative;width:100%;height:100%;min-height:0;overflow:clip;isolation:isolate}
+.photo-slider__print{position:absolute;top:50%;left:50%;width:max-content;max-width:100%;padding:7px;opacity:0;visibility:hidden;pointer-events:none;transform:translate(-50%,-50%) scale(.7);transition:transform .55s cubic-bezier(.2,.7,.2,1),opacity .4s ease,visibility .55s}
+.photo-slider__print .photo-print__image{display:block;width:max-content;max-width:100%;height:auto;background:transparent}
+.photo-slider__print img{display:block;width:auto;max-width:min(86vw,520px);max-height:min(53svh,470px);height:auto;object-fit:contain}
+.photo-slider__print--previous,.photo-slider__print--next{z-index:1;opacity:.82;visibility:visible;filter:brightness(.96)}
+.photo-slider__print--previous{transform:translate(calc(-50% - min(59vw,270px)),-50%) rotate(-5deg) scale(.82)}
+.photo-slider__print--next{transform:translate(calc(-50% + min(59vw,270px)),-50%) rotate(5deg) scale(.82)}
+.photo-slider__print--current{z-index:3;opacity:1;visibility:visible;pointer-events:auto;transform:translate(-50%,-50%) rotate(-2deg)}
+.photo-slider__arrow{position:absolute;z-index:5;top:50%;display:grid;place-items:center;width:42px;height:48px;border:1px solid #B5A3C7;border-radius:50%;background:#FFFCF5e8;box-shadow:0 4px 10px #5C526529;color:#5C5265;font:34px/1 Georgia,serif;cursor:pointer;transform:translateY(-50%)}
+.photo-slider__arrow:first-child{left:7px}
+.photo-slider__arrow:last-child{right:7px}
+.photo-slider__count{margin:10px 0 0;color:#60564D;font-size:16px}
+@media(max-width:430px){.photo-slider h2{font-size:34px}}
+@media(prefers-reduced-motion:reduce){.photo-slider__print{transition:none}}
+
+/* Телефон Полины между двумя коллажами: компактная композиция без подложки; покачивается только во время короткого звонка, кнопка управляет мелодией. */
+.vintage-telephone{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;margin:8px auto 18px;padding:0 8px;text-align:center}
+.vintage-telephone__title{margin:0;color:#5C5265;font:clamp(27px,7vw,38px)/1.15 'Marck Script',cursive}
+.vintage-telephone__button{display:block;width:min(58vw,300px);height:auto;margin:0;padding:0;border:0;background:transparent;cursor:pointer;filter:drop-shadow(0 8px 8px #5C52652b);transform-origin:50% 85%}
+.vintage-telephone__button img{display:block;width:100%;height:auto}
+.vintage-telephone__button--ringing{animation:vintage-telephone-ring .54s ease-in-out infinite alternate}
+.vintage-telephone__button:focus-visible{outline:2px solid #927B9D;outline-offset:5px;border-radius:18px}
+.vintage-telephone__hint{margin:0;color:#60564D;font:clamp(22px,5.8vw,29px)/1.15 'Marck Script',cursive}
+.vintage-telephone__error{margin:4px 0 0;color:#60564D;font-size:13px}
+@keyframes vintage-telephone-ring{0%{transform:rotate(-4deg)}100%{transform:rotate(4deg)}}
+@media(prefers-reduced-motion:reduce){.vintage-telephone__button--ringing{animation:none}}
+
+/* Левые страницы детского альбома: сердечки и прозрачные веточки привязаны к размерам страницы; у переплёта на телефоне видны несколько деталей каждого разворота. При перелистывании меняется только декоративная композиция. */
+.album-book__composition{position:absolute;inset:0;pointer-events:none;transition:opacity .18s ease}
+.album-book__composition--lavender,.album-sequence.is-second .album-book__composition--hearts{opacity:0}
+.album-sequence.is-second .album-book__composition--lavender{opacity:1}
+.album-book__ornament{position:absolute;display:block;height:auto;object-fit:contain;transform-origin:center;filter:none}
+svg.album-book__ornament{overflow:visible;stroke:#927B9D;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.album-book__heart-sketch{stroke:#B5A3C7;stroke-width:1;opacity:.8}
+.album-book__heart--large{top:18%;right:6%;width:29%;transform:rotate(-11deg)}
+.album-book__heart--small{top:57%;right:23%;width:15%;transform:rotate(14deg)}
+.album-book__heart--middle{top:72%;left:16%;width:22%;transform:rotate(9deg)}
+.album-book__sprig--hearts-top{top:9%;left:12%;width:28%;transform:rotate(-17deg)}
+.album-book__sprig--hearts-bottom{top:70%;right:2%;width:28%;transform:rotate(24deg)}
+.album-book__lavender--bouquet{top:13%;right:2%;width:41%;transform:rotate(12deg)}
+.album-book__lavender--sprig-right{top:66%;right:5%;width:31%;transform:rotate(-14deg)}
+.album-book__lavender--sprig-left{top:43%;left:13%;width:30%;transform:rotate(25deg)}
+.album-book__heart--lavender-right{top:53%;right:22%;width:15%;transform:rotate(17deg)}
+.album-book__heart--lavender-left{top:18%;left:14%;width:18%;transform:rotate(-9deg)}
+.collage .collage-note{max-width:59%;font-size:clamp(17px,4.5vw,24px);line-height:1.12}
+.photo-slider{padding-top:8px}
+@media(max-width:700px){
+  .album-book__heart--large{right:4%;width:32%}
+  .album-book__heart--small{top:51%;right:4%;width:18%}
+  .album-book__sprig--hearts-bottom{right:0;width:31%}
+  .album-book__lavender--bouquet{right:0;width:45%}
+  .album-book__lavender--sprig-right{right:3%;width:34%}
+  .album-book__heart--lavender-right{top:51%;right:5%;width:18%}
+}
+@media(prefers-reduced-motion:reduce){.album-book__composition{transition:none}}
+
+/* Конверт и видео Полины: поверх исходного изображения лежит тонкая бечёвка, а открытое окно содержит только поздравление и ролик в бумажном обрамлении. Пропорции видео сохраняются. */
+.surprise-envelope__vertical-string{position:absolute;inset:0;z-index:1;width:100%;height:100%;pointer-events:none;overflow:visible}
+.surprise-envelope__vertical-string path{stroke-linecap:round;stroke-linejoin:round}
+.surprise-envelope__string-shadow{stroke:#886845;stroke-width:13;opacity:.32}
+.surprise-envelope__string-body{stroke:#c9a675;stroke-width:8}
+.surprise-envelope__string-twist{stroke:#f3ddb0;stroke-width:2;stroke-dasharray:3 6;opacity:.85}
+.surprise-card{width:min(390px,100%);padding:28px 18px 22px}
+.surprise-card__close{top:8px;right:8px}
+.surprise-card__note{margin:35px 24px 16px;padding:0;background:none;box-shadow:none;font-size:clamp(24px,6.8vw,31px);line-height:1.1;transform:rotate(-2deg)}
+.surprise-video-frame{width:fit-content;max-width:100%;margin:0 auto;padding:7px;border:1px solid #DFD2BD;background:#FFFCF5;box-shadow:0 10px 22px #5C526536,0 2px 5px #5C526522;transform:rotate(.5deg)}
+.surprise-video{display:block;width:auto;max-width:100%;height:auto;max-height:min(62svh,560px);margin:0;background:#DFD2BD;object-fit:contain}
+@media(max-width:350px){.surprise-card{padding:24px 12px 15px}.surprise-card__note{margin:35px 17px 13px}}
+
+/* Финальная расстановка декора Полины: утверждённые ассеты заполняют свободные поля у фотографий, остаются позади карточек и не принимают нажатия. Размеры заданы относительно мобильной области каждого раздела. */
+.cover-decor--balloon{top:1%;left:-2%;width:24%}
+.cover-decor--balloons{top:-2%;right:-1%;width:38%}
+.cover-decor--lavender-composition{right:-5%;bottom:7%;width:39%}
+.album-decor--gift{left:5%;bottom:6%;width:20%}
+.collage__accent{position:absolute;z-index:1;display:block;height:auto;object-fit:contain;pointer-events:none;user-select:none;filter:drop-shadow(2px 5px 6px #5C52652b)}
+.collage__accent--lion-bouquet{top:min(69vw,449px);left:5%;width:25%;transform:rotate(-15deg)}
+.collage__accent--friends-balloons{top:min(132vw,858px);right:2%;width:25%}
+.collage--together .collage__lavender{top:min(36vw,234px);right:2%;bottom:auto;width:22%;transform:rotate(14deg)}
+.collage--together .collage__ribbon--together{top:min(75vw,488px);left:-2%;bottom:auto;width:30%;transform:rotate(67deg)}
+.collage__accent--dog-balloon{top:min(131vw,852px);right:3%;width:19%}
+.collage__accent--sea-bouquet{top:min(198vw,1287px);right:1%;width:20%;transform:rotate(15deg)}
+.collage--together .collage__ribbon--gift{z-index:1;top:auto;right:auto;bottom:3%;left:-4%;width:36%;transform:rotate(-25deg)}
+.collage--together .collage__gift{left:2%;bottom:0;width:25%}
+.collage--transition .collage__ribbon{right:-3%}
+.final-letter__transition-lavender{position:absolute;z-index:1;top:7%;right:1%;display:block;width:27%;height:auto;pointer-events:none;transform:rotate(12deg)}
+.final-letter__lavender{z-index:1;right:1%;bottom:6%;width:17%;max-height:none;transform:rotate(18deg)}
+.final-letter__ribbon{bottom:4%}
+.envelope-section__gift{right:5%;bottom:5vw;width:28%}
+@media(max-width:700px){
+  .cover-decor--balloon{top:1%;left:0;width:22%}
+  .cover-decor--balloons{top:-2%;right:-2%;width:35%}
+  .cover-decor--lavender-composition{display:none}
+  .album-decor--gift{left:5%;bottom:6%;width:27%}
+  .final-letter{padding-bottom:136px}
+  .final-letter__transition-lavender{top:62px;right:0;width:28%}
+  .final-letter__lavender{right:3%;bottom:8px;width:21%}
+  .final-letter__ribbon{left:-15%;bottom:18px;width:58%}
+  .envelope-section__gift{right:5%;bottom:5vw;width:32%}
+}
+@media(max-width:350px){
+  .album-decor--gift,.album-decor--lavender-bouquet{display:none}
+  .collage__accent--lion-bouquet{left:3%;width:23%}
+  .collage__accent--friends-balloons{right:0;width:23%}
+  .collage__accent--sea-bouquet{right:0;width:18%}
+  .final-letter__transition-lavender{right:0;width:25%}
+}
+
+/* Малые акценты: одинаковое сердечко завершает обе подписи коллажей, а на подложке видео тонкие сердечки и прозрачная лаванда занимают только свободные поля. */
+.collage-note__heart{display:inline-block;margin-left:2px;color:#927B9D;font:1.25em/0.8 'Marck Script',cursive;vertical-align:-2px;transform:rotate(-11deg)}
+.surprise-card__doodle{position:absolute;z-index:1;display:block;pointer-events:none;user-select:none}
+.surprise-card__doodle--heart-one,.surprise-card__doodle--heart-two,.surprise-card__doodle--heart-three{font-family:'Marck Script',cursive;line-height:1;color:#927B9D}
+.surprise-card__doodle--heart-one{top:29px;left:4%;font-size:29px;transform:rotate(-13deg)}
+.surprise-card__doodle--heart-two{top:22%;right:2%;font-size:20px;color:#B5A3C7;transform:rotate(15deg)}
+.surprise-card__doodle--heart-three{top:54%;right:2%;font-size:24px;transform:rotate(-8deg)}
+.surprise-card__doodle--lavender-one{top:42%;left:1%;width:8%;max-width:31px;height:auto;opacity:.88;transform:rotate(-16deg)}
+@media(min-width:701px){
+  .final-letter{padding-bottom:235px}
+  .final-letter__lavender{right:9%;bottom:1%;width:12%}
+}
+
+/* Подарок под детским альбомом Полины: на телефоне его высота зависит от размеров самой страницы альбома, поэтому бант остаётся видимым при разной высоте окна; размер, положение по горизонтали и наклон сохранены. Конфетти после слайдера не меняет высоту разделов. */
+@media(max-width:700px){.album-decor--gift{translate:none;top:calc(75px + min(130vw,510px) + 33px);bottom:auto}}
+@media(max-width:350px){.album-decor--gift{display:block}}
+.photo-slider{position:relative}
+.paper-confetti--slider-gap{top:calc(100% - 8px);bottom:auto;height:76px;overflow:visible}
+.paper-confetti--slider-gap .paper-confetti__piece{opacity:.48}
+.paper-confetti--slider-gap .paper-confetti__piece--0{background:#B5A3C7}
+.paper-confetti--slider-gap .paper-confetti__piece--1{background:#FFFCF5;opacity:.78}
+.paper-confetti--slider-gap .paper-confetti__piece--2{background:#9DA88B}
+.paper-confetti--slider-gap .paper-confetti__piece:nth-child(4n){background:#D5B0AE}
+
+/* Три точечные правки коллажей Полины на телефоне: снимок со львом опущен ниже лица девочки, бумажная подпись освобождает лицо именинницы, а лента у снимка с котом повёрнута в свободное поле. Размеры фотографий и наклейки сохранены. */
+@media(max-width:700px){
+  .collage--transition .collage-photo--slot-2{top:calc(min(47vw,306px) + clamp(20px,6.4vw,30px))}
+  .collage--together .collage-note--together{top:0;right:1%;transform:rotate(1deg)}
+  .collage--together .collage__ribbon--together{left:2%;transform:rotate(112deg)}
+}

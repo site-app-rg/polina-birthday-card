@@ -1,0 +1,7 @@
+node_modules/
+dist/
+.verify-profile/
+screenshots/
+*.tsbuildinfo
+adapt.py
+adapt.cjs
